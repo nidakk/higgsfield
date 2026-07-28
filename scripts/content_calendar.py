@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """Generate a posting calendar for the 5-account TikTok Shop growth network.
 
-Reads config/accounts.yaml (accounts, niches, content pillars, posting
-times, phase) and produces a day-by-day queue of post slots: which
-account, what time, which content pillar, which hook type, and whether
-the post is problem/solution (growth) or shop-adjacent (phase 2).
+Reads config/accounts.yaml (accounts, niches, posting times, phase) and
+produces a day-by-day queue of post slots: which account, what time,
+which hook category (per the weekly hook schedule), and whether the post
+is problem/solution (growth) or shop-adjacent (phase 2). The `topic`
+field is left for daily trend research to fill in
+(docs/production_pipeline.md, Step 1.5) — topics are no longer drawn from
+a fixed pillar list, see docs/hooks_and_scripts.md.
 
 Usage:
     content_calendar.py
@@ -18,20 +21,22 @@ import argparse
 import csv
 import dataclasses
 import datetime
-import itertools
 import json
 import sys
 from pathlib import Path
 
 import yaml
 
-HOOK_TYPES = [
-    "pattern_interrupt",
-    "myth_bust",
-    "confession",
-    "cliffhanger",
-    "direct_question",
-]
+# Weekly hook schedule (docs/hooks_and_scripts.md) — Monday=0 .. Sunday=6.
+HOOK_SCHEDULE = {
+    0: "mid_sentence",
+    1: "bold_claim",
+    2: "reverse_psychology",
+    3: "probing",
+    4: "break",
+    5: "brand_to_brand",
+    6: "headline_typography",
+}
 
 
 @dataclasses.dataclass
@@ -42,7 +47,7 @@ class PostSlot:
     niche: str
     phase: str
     content_type: str
-    pillar: str
+    topic: str
     hook_type: str
     status: str = "planned"
 
@@ -58,13 +63,15 @@ def generate_calendar(config: dict, start: datetime.date, days: int) -> list[Pos
     slots: list[PostSlot] = []
 
     for account in accounts:
-        pillar_cycle = itertools.cycle(account["pillars"])
-        hook_cycle = itertools.cycle(HOOK_TYPES)
         shop_debt = 0.0
         phase = account.get("phase", "growth")
 
         for day_offset in range(days):
             date = start + datetime.timedelta(days=day_offset)
+            hook_type = HOOK_SCHEDULE[date.weekday()]
+            if hook_type == "brand_to_brand" and phase != "shop_primed":
+                hook_type = "mid_sentence"  # Phase 1 fallback, see docs/hooks_and_scripts.md
+
             for post_time in account["posting_times"]:
                 content_type = "problem_solution"
                 if phase == "shop_primed":
@@ -81,8 +88,8 @@ def generate_calendar(config: dict, start: datetime.date, days: int) -> list[Pos
                         niche=account["niche"],
                         phase=phase,
                         content_type=content_type,
-                        pillar=next(pillar_cycle),
-                        hook_type=next(hook_cycle),
+                        topic="TBD — fill from daily trend research",
+                        hook_type=hook_type,
                     )
                 )
 

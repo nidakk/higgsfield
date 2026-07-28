@@ -14,30 +14,42 @@ nothing auto-publishes to TikTok. Connecting the 5 TikTok accounts and
 turning on direct publishing is a deliberate later step (Step 7), done
 once you're ready to start actually posting.
 
-## Step 0 — Lock each account's avatar (one-time, per account)
+## Step 0 — Lock each account's avatar (one-time, per account) — done
 
 Each account needs its own distinct, locked identity before Step 3 can
-produce consistent videos. For each of the 5 accounts:
+produce consistent videos. All 5 are locked as of this writing
+(`avatar.reference_media_id` in `config/accounts.yaml`); the process for
+locking or re-locking one:
 
-1. If a reference photo is supplied for that account, bring it in with
-   `media_upload_widget` (local file) or `media_import_url` (a URL) and
-   use it as a face reference. Otherwise generate from that account's
-   `avatar.description` / `hair` / `wardrobe` text in
-   `config/accounts.yaml`.
-2. Call `models_explore(action: "recommend")` with the goal ("photoreal
-   woman, 35+, consistent identity across future videos") to confirm the
-   right identity-generation model, then `generate_image` a clean,
-   well-lit portrait matching that account's avatar description.
-3. Save the resulting media/job ID into that account's
-   `avatar.reference_media_id` in `config/accounts.yaml`.
-4. Every video generated for that account from then on (Step 3) must
+1. If a reference photo/video is supplied for that account, bring it in
+   with `media_upload_widget` (local file) or `media_import_url` (a
+   URL) and use it as a face reference. Otherwise generate from that
+   account's `avatar.description` / `hair` / `wardrobe` text via
+   `soul_cast` (text-only consistent-character model).
+2. Save the resulting media/job ID into that account's
+   `avatar.reference_media_id`, and set `avatar.reference_type` to
+   `image` or `video` to match.
+3. Every video generated for that account from then on (Step 3) must
    pass this same `reference_media_id` as the identity input — never
    let a generation happen without it, or the face will drift and break
    the account's continuity.
 
-Nothing in Step 3 produces a consistent avatar until this runs per
-account. Currently blocked: no reference photos have been supplied yet
-for any of the 5 accounts.
+### Step 0b — Profile picture per account
+
+A profile picture is a separate asset from the avatar reference —
+generate it by conditioning an image-to-image model (`nano_banana_pro`,
+role `image`) on the account's **existing approved `reference_media_id`
+image job**, asking for a natural/real-feeling backdrop (not a blank
+studio background) and describing the setting change only ("same
+woman, same face/hair, unchanged — change only the background to ...").
+Save the result to `avatar.profile_picture_media_id`.
+
+This only works when `reference_media_id` is itself a completed image
+job — passing a video-type reference into an image model fails outright
+("Media input not found"). Skincare's `reference_media_id` is a video,
+so its profile picture can't be generated this way; the practical
+workaround is extracting a still frame from the source video directly
+(see the account's config comment for status).
 
 ## Step 1 — Generate the daily queue
 
@@ -45,14 +57,34 @@ for any of the 5 accounts.
 python3 scripts/content_calendar.py --start <date> --days 1
 ```
 
-This produces one row per post (account, time, pillar, hook_type,
-content_type). Treat it as the day's production queue.
+This produces one row per post (account, time, hook_type per the weekly
+hook schedule, content_type, and a `topic` placeholder). Treat it as the
+day's production queue, then fill in `topic` per Step 1.5 before
+scripting.
+
+## Step 1.5 — Research today's trending topic per account
+
+Topics are not drawn from a fixed list — each account's 3 daily posts
+should cover what's actually being discussed in that niche right now.
+For each account, before scripting:
+
+1. Web search using that account's `trend_scope` (`config/accounts.yaml`)
+   as the query seed — look for what's currently trending/actively
+   discussed in that niche (recent viral posts, hot takes, recurring
+   questions, seasonal spikes).
+2. Pick 3 distinct angles/topics for that account's day — specific
+   enough to hook on (matches the "specific beats general" rule in
+   `docs/strategy.md`), not a repeat of a topic covered in the last
+   ~1-2 weeks for that account.
+3. Fill each row's `topic` field for that account/day with the chosen
+   angle before moving to Step 2.
 
 ## Step 2 — Script each slot
 
-For each row, write the script using the matching template in
-`docs/hooks_and_scripts.md` for that niche + hook_type. Output: a short
-voiceover script (~20–25s) plus an on-screen hook line.
+For each row, write the script using the hook line matching that row's
+`hook_type` (pulled from the bank in `docs/hooks_and_scripts.md`) filled
+in with that row's `topic` from Step 1.5. Output: a short voiceover
+script (~20–25s) plus an on-screen hook line.
 
 ## Step 3 — Generate the video
 
@@ -125,7 +157,7 @@ instead of publishing:
    date subfolder under each account folder at the start of each day's
    batch.
 2. Upload the video with `create_file`: `title` using the convention
-   `<time>_<pillar-slug>_<hook_type>.mp4`, `base64Content` set to the
+   `<time>_<topic-slug>_<hook_type>.mp4`, `base64Content` set to the
    file's contents, `contentMimeType: "video/mp4"`,
    `disableConversionToGoogleType: true` (video has no Google-native
    equivalent, but set it explicitly so nothing gets reprocessed), and
