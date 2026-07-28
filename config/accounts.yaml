@@ -19,6 +19,9 @@ drive_root_folder_id: null  # "TikTok Shop Growth" root folder, set once created
 accounts:
   - id: moms
     niche: Moms
+    # General "mom" audience, not just moms of young kids — pillars
+    # should span every stage (newborn through empty nest), not just
+    # toddler/little-kid content.
     handle: null
     connector_id: null
     drive_folder_id: null
@@ -26,10 +29,10 @@ accounts:
     aesthetic: "soft natural light, cozy home interiors, warm muted palette"
     pillars:
       - daily overwhelm and mom guilt
-      - toddler / kid behavior hacks
+      - parenting hacks for every age and stage
       - quick wins for exhausted parents
       - "\"you're not failing\" reassurance"
-      - routines that actually survive real life
+      - the identity shift of motherhood, new mom to empty nest
     posting_times: ["08:00", "13:00", "19:00"]
 
   - id: skincare

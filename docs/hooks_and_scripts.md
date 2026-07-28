@@ -40,8 +40,12 @@ it is atmosphere, never the message.
 ## Worked examples per niche
 
 ### Moms
+General "mom" audience, not just moms of young kids — rotate examples
+across stages (newborn, school-age, teen, empty nest) so the account
+doesn't read as toddler-only.
 - **Pattern interrupt:** "Stop apologizing for a messy house when someone drops by." → Tension: the guilt is trained, not earned. → Proof: "I used to hide toys in the oven before guests came." → Payoff: one line to say instead ("welcome to the lived-in house") + why it resets the interaction. → CTA: "Follow for the script I use when the guilt hits mid-day."
-- **Confession:** "I ignored my toddler's meltdowns for a year before I learned this." → the missed cue → the fix (name the feeling before redirecting) → "Try it tonight and tell me what happens."
+- **Confession:** "I ignored my kid's meltdowns for a year before I learned this." → the missed cue → the fix (name the feeling before redirecting) → "Try it tonight and tell me what happens." (Works for toddler tantrums or teen shutdowns — swap the example to match the stage.)
+- **Direct question:** "Why does the house feel emptier than it should, even with everyone still home?" → the identity shift nobody prepares you for as kids need you less → one reframe that helps → "Follow — this only gets more true as they get older."
 
 ### Skincare
 - **Myth bust:** "'Drink more water' won't fix your dry skin." → the real cause (barrier damage, over-exfoliation) → the fix (one ingredient swap) → "Save this before your next Sephora trip."
