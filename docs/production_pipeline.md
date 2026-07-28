@@ -68,37 +68,34 @@ This produces one row per post (account, time, hook_type — always
 `"question"`, see `docs/hooks_and_scripts.md` — content_type, a
 `topic` placeholder, and that slot's `selfie_location` /
 `selfie_location_ambience` / `selfie_outfit`). Treat it as the day's
-production queue, then fill in `topic` per Step 1.5 before writing
-hooks.
-
-## Step 1.5 — Research today's trending topic per account
-
-Topics are not drawn from a fixed list — each account's 3 daily posts
-should cover what's actually being discussed in that niche right now.
-For each account, before scripting:
-
-1. Web search using that account's `trend_scope` (`config/accounts.yaml`)
-   as the query seed — look for what's currently trending/actively
-   discussed in that niche (recent viral posts, hot takes, recurring
-   questions, seasonal spikes).
-2. Pick 3 distinct angles/topics for that account's day — specific
-   enough to hook on (matches the "specific beats general" rule in
-   `docs/strategy.md`), not a repeat of a topic covered in the last
-   ~1-2 weeks for that account.
-3. Fill each row's `topic` field for that account/day with the chosen
-   angle before moving to Step 2.
+production queue, then write each row's hook + caption directly (Step
+2) — no research step in between.
 
 ## Step 2 — Write today's hook + caption
 
-No script, no voiceover — just two short pieces of text per slot:
+**No trend research.** Topics don't come from web search or "what's
+trending this week" — that pulled hooks back toward naming a product/
+trend by name (skinimalism, cozymaxxing, scalp skinification...),
+which is exactly the templated, surface-level register that got
+rejected repeatedly in favor of concrete, evergreen, personal moments.
+The niche (`niche` / `aesthetic` in `config/accounts.yaml`) is scope
+enough — pick a specific angle straight from the concrete-scene method
+below, not from a headline.
+
+No script, no voiceover either — just two short pieces of text per
+slot:
 
 1. **On-screen hook** — a question, following the patterns and
    intensity bar in `docs/hooks_and_scripts.md` ("Question hook
-   patterns"), filled in with that row's `topic` from Step 1.5. This is
-   text overlaid on the video, not narration — the clip itself is
-   silent (Step 3).
+   patterns") — a specific, sensory, real moment within that account's
+   niche. This is text overlaid on the video, not narration — the clip
+   itself is silent (Step 3).
 2. **Caption** — one short line ("Cap: ...") plus 2-3 hashtags, posted
    alongside the video.
+
+Fill each row's `topic` field with the chosen angle (a short label, not
+the hook itself) for your own tracking/dedup purposes — not a research
+placeholder.
 
 That's the entire text output for a post. There's no tension/proof/
 payoff script beat structure anymore — the hook+caption pair carries

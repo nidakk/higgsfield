@@ -24,10 +24,12 @@
 # user-supplied video reference (e.g. Skincare, sourced from an existing
 # video rather than a generated portrait).
 #
-# Topics are NOT drawn from a fixed pillar rotation — each day's 3 posts
-# per account are picked from that day's actual trending discussions in
-# the niche (docs/production_pipeline.md, Step 1.5). `trend_scope` is the
-# search-guidance string used for that daily research, not a content list.
+# Topics are NOT drawn from a fixed pillar rotation, and NOT from trend
+# research either (that pulled hooks toward naming a trend/product by
+# name — templated, surface-level). Each day's hook is a specific,
+# concrete angle picked directly within the account's niche (see
+# `niche` / `aesthetic` below, and docs/hooks_and_scripts.md's
+# "Question hook patterns" for how).
 
 follower_goal: 5000
 posts_per_day: 3
@@ -54,7 +56,6 @@ accounts:
       reference_media_id: "0ec51516-bcd4-41dc-ac71-39310a0b50d8"  # approved candidate, soul_cast
       reference_type: image  # pass as role "image_references" in generate_video (seedance_2_0)
       profile_picture_media_id: "fd7c2a48-1f74-4323-b34c-c67da1c1bb87"  # approved, conditioned on reference_media_id
-    trend_scope: "parenting and motherhood at any stage — viral parenting moments, hot takes, relatable struggles, trending mom discourse"
     posting_times: ["08:00", "13:00", "19:00"]
 
   - id: skincare
@@ -72,7 +73,6 @@ accounts:
       reference_media_id: "52e8e53b-b7d6-4857-9ab7-27b60398418c"  # locked identity reference — replaces prior video reference (2178255b-4a8e-42a1-8fe4-a4d5e5df01cd), which did not match the approved identity
       reference_type: image  # pass as role "image_references" in generate_video (seedance_2_0)
       profile_picture_media_id: "52e8e53b-b7d6-4857-9ab7-27b60398418c"  # locked — the approved photo itself, used directly rather than a regenerated likeness
-    trend_scope: "skincare trends — viral ingredients/products, dermatologist takes, skin concerns and routines going viral"
     posting_times: ["09:00", "14:00", "20:00"]
 
   - id: self_care
@@ -90,7 +90,6 @@ accounts:
       reference_media_id: "955783f1-bfba-4542-b86a-ad17434bb38f"  # approved: original soul_cast candidate (bb2c9a9a) with hair polish pass
       reference_type: image  # pass as role "image_references" in generate_video (seedance_2_0)
       profile_picture_media_id: "539f7fed-d6f3-4ee2-b035-b5a9349166e7"  # approved, conditioned on reference_media_id
-    trend_scope: "wellness and self-care trends — burnout discourse, mental load conversations, rest/boundaries takes going viral"
     posting_times: ["07:30", "12:30", "21:00"]
 
   - id: hair
@@ -108,7 +107,6 @@ accounts:
       reference_media_id: "7630c2f6-8f3d-4eab-a633-f28207bde98f"  # approved candidate (2nd round — modern styling, replaced 90s-reading first candidate)
       reference_type: image  # pass as role "image_references" in generate_video (seedance_2_0)
       profile_picture_media_id: "a458df68-d7fb-429a-abe0-b431f132ce1b"  # conditioned on reference_media_id, natural bathroom background
-    trend_scope: "haircare trends — viral hair hacks/products, hairstyling trends, damage/frizz discourse going viral"
     posting_times: ["08:30", "15:00", "19:30"]
 
   - id: home
@@ -126,5 +124,4 @@ accounts:
       reference_media_id: "0841f751-3ab2-4834-abfe-6127ae089c95"  # approved candidate, soul_cast
       reference_type: image  # pass as role "image_references" in generate_video (seedance_2_0)
       profile_picture_media_id: "8640f2f9-52d1-4529-bf24-040aeade0ab9"  # approved, conditioned on reference_media_id
-    trend_scope: "home/cleaning/organization trends — viral home hacks, decluttering discourse, satisfying reset content going viral"
     posting_times: ["09:30", "14:30", "20:30"]

@@ -3,11 +3,11 @@
 
 Reads config/accounts.yaml (accounts, niches, posting times, phase) and
 produces a day-by-day queue of post slots: which account, what time,
-which hook category (per the weekly hook schedule), and whether the post
-is problem/solution (growth) or shop-adjacent (phase 2). The `topic`
-field is left for daily trend research to fill in
-(docs/production_pipeline.md, Step 1.5) — topics are no longer drawn from
-a fixed pillar list, see docs/hooks_and_scripts.md.
+hook_type (always "question"), a selfie location/outfit from the daily
+rotation, and whether the post is problem/solution (growth) or
+shop-adjacent (phase 2). The `topic` field is left for Step 2
+(docs/production_pipeline.md) to fill in directly — no trend research,
+no fixed pillar list, see docs/hooks_and_scripts.md.
 
 Usage:
     content_calendar.py
@@ -121,7 +121,7 @@ def generate_calendar(config: dict, start: datetime.date, days: int) -> list[Pos
                         niche=account["niche"],
                         phase=phase,
                         content_type=content_type,
-                        topic="TBD — fill from daily trend research",
+                        topic="TBD — fill directly in Step 2, no research",
                         hook_type=hook_type,
                         selfie_location=location["label"],
                         selfie_location_ambience=location["ambience"],

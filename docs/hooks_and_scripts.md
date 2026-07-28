@@ -8,8 +8,12 @@ Relatable proof → Payoff/advice → Loop-close/CTA) is retired along with
 the spoken-to-camera video format — kept below only as legacy reference
 for phrasing variety, never produced as an actual script anymore.
 
-The topic for each post comes from that day's trend research
-(`docs/production_pipeline.md`, Step 1.5) — not a fixed pillar list.
+The topic for each post is picked directly, not researched — no web
+search, no "what's trending this week." That kept pulling hooks back
+toward naming a trend/product by name (skinimalism, cozymaxxing...),
+which is the templated, surface-level register that's been rejected
+repeatedly. The niche is scope enough; the specific angle comes from
+the concrete-scene method below.
 
 **The on-screen hook is always phrased as a question** — see "Question
 hook patterns" below. `scripts/content_calendar.py` assigns
@@ -24,7 +28,7 @@ recurring shapes, mixed across a day's/account's posts rather than
 picking one and reusing it 3x:
 
 - **False-dichotomy / rhetorical:** "Is ___, or are you just ___?" —
-  poses the researched topic as a loaded either/or that answers itself.
+  poses the chosen angle as a loaded either/or that answers itself.
   _"Is your $200 skincare routine doing anything, or are you just
   paying to feel productive?"_
 - **Would-you-rather:** "Would you rather ___, or ___?" / "Would you
@@ -35,9 +39,10 @@ picking one and reusing it 3x:
   absurdity as normal and asks the viewer to justify it. _"Why does
   saying 'no' to your own kid suddenly make you the villain?"_
 
-Fill the blank with today's researched topic (Step 1.5). Vary which of
-the 3 shapes each post uses so a day's 3 posts per account don't all
-read identically.
+Fill the blank with the account's chosen angle for that slot (a
+concrete scene within the niche, not a researched trend — see the
+intensity bar below). Vary which of the 3 shapes each post uses so a
+day's 3 posts per account don't all read identically.
 
 **Intensity bar: a concrete moment, not an abstract label.** Three
 failed attempts taught this the hard way:
