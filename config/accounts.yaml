@@ -1,18 +1,27 @@
 # Account roster for the 5-account TikTok Shop growth network.
 #
-# Fill in `handle` and `connector_id` once each account is created and
-# connected in Higgsfield (see docs/production_pipeline.md, step 0).
-# `connector_id` is returned by the tiktok_accounts MCP tool once connected.
+# Daily output currently lands in Google Drive, not TikTok directly (see
+# docs/production_pipeline.md, step 6). `drive_folder_id` is the Drive
+# folder ID for that account's root folder, created once and reused for
+# every day's subfolder.
+#
+# `handle` and `connector_id` stay null until you're ready to connect
+# TikTok and start publishing directly (docs/production_pipeline.md,
+# step 7 — deferred). `connector_id` is returned by the tiktok_accounts
+# MCP tool once connected.
 
 follower_goal: 5000
 posts_per_day: 3
 phase2_sell_ratio: 0.3  # fraction of Phase 2 posts that are shop-adjacent
+
+drive_root_folder_id: null  # "TikTok Shop Growth" root folder, set once created
 
 accounts:
   - id: moms
     niche: Moms
     handle: null
     connector_id: null
+    drive_folder_id: null
     phase: growth
     aesthetic: "soft natural light, cozy home interiors, warm muted palette"
     pillars:
@@ -27,6 +36,7 @@ accounts:
     niche: Skincare
     handle: null
     connector_id: null
+    drive_folder_id: null
     phase: growth
     aesthetic: "macro product/texture shots, clean bright bathroom counters, minimal palette"
     pillars:
@@ -41,6 +51,7 @@ accounts:
     niche: Self-care
     handle: null
     connector_id: null
+    drive_folder_id: null
     phase: growth
     aesthetic: "slow, calm b-roll — candlelight, tea, quiet rooms, soft motion"
     pillars:
@@ -55,6 +66,7 @@ accounts:
     niche: Hair
     handle: null
     connector_id: null
+    drive_folder_id: null
     phase: growth
     aesthetic: "salon-adjacent, glossy close-ups, motion on hair texture"
     pillars:
@@ -69,6 +81,7 @@ accounts:
     niche: Home
     handle: null
     connector_id: null
+    drive_folder_id: null
     phase: growth
     aesthetic: "tidy sunlit interiors, satisfying before/after motion, clean palette"
     pillars:

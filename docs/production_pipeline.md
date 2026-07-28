@@ -1,27 +1,18 @@
 # Production Pipeline
 
-How a calendar slot from `scripts/content_calendar.py` becomes a published
-TikTok post, using the Higgsfield tools available in this workspace. This
-is an operating runbook, not a standalone script — steps that call
-Higgsfield (`generate_video`, `virality_predictor`, `tiktok_*`) run through
-an agent session with those tools connected, since they aren't a public
-API a local script can call directly.
+How a calendar slot from `scripts/content_calendar.py` becomes a finished,
+delivered video, using the Higgsfield and Google Drive tools available in
+this workspace. This is an operating runbook, not a standalone script —
+steps that call Higgsfield (`generate_video`, `virality_predictor`) or
+Google Drive (`create_file`) run through an agent session with those
+tools connected, since they aren't a public API a local script can call
+directly.
 
-## Step 0 — Connect the 5 TikTok accounts (one-time, per account)
-
-Current state: **0 accounts connected** (`tiktok_accounts` returns empty).
-Before any publishing can happen:
-
-1. Create the 5 TikTok accounts (moms / skincare / self-care / hair /
-   home) if they don't exist yet.
-2. For each, run `tiktok_connect` and complete the OAuth flow.
-3. Run `tiktok_accounts` to confirm each shows `status: active`, and
-   record its `connector_id` into the matching entry's `connector_id`
-   field in `config/accounts.yaml`. Also fill in `handle`.
-4. Re-run `tiktok_connect` → `tiktok_reconnect` for any account that
-   later shows `status: error`.
-
-Nothing downstream works without this step.
+**Current delivery target: Google Drive, not TikTok.** Each day's batch
+is generated, quality-checked, and dropped into Drive for review —
+nothing auto-publishes to TikTok. Connecting the 5 TikTok accounts and
+turning on direct publishing is a deliberate later step (Step 7), done
+once you're ready to start actually posting.
 
 ## Step 1 — Generate the daily queue
 
@@ -82,25 +73,60 @@ signals as a go/no-go gate:
   underperform. Protecting the account's growth-phase momentum matters
   more than hitting the 3x/day quota on a specific day.
 
-## Step 6 — Publish
+## Step 6 — Deliver to Google Drive
 
-Two-step Higgsfield flow, per account (`connector_id` from
-`config/accounts.yaml`):
+Once a video passes Steps 4–5, upload it (and its caption) to Drive
+instead of publishing:
 
-1. `tiktok_prepare_publish` — `mode: "DIRECT_POST"`, `media_type: "VIDEO"`,
-   the Higgsfield-hosted `video_url`, `video_duration_sec`, caption in
-   `title`/`description`. Returns required confirmations and privacy
-   options.
-2. `tiktok_publish` — pass `publish_session_id` from step 1, set every
-   flag from `required_confirmations` to `true`, and **set `is_aigc:
-   true`** (all content here is AI-generated — this disclosure is
-   mandatory, not optional). Set `privacy_level: "PUBLIC_TO_EVERYONE"`
-   for growth-phase posts.
+1. Folder structure, created once and reused:
+   ```
+   TikTok Shop Growth/
+     Moms/2026-07-28/
+     Skincare/2026-07-28/
+     Self-care/2026-07-28/
+     Hair/2026-07-28/
+     Home/2026-07-28/
+   ```
+   Create the root folder and one subfolder per account with
+   `create_file` (`mimeType: "application/vnd.google-apps.folder"`),
+   record the returned folder IDs in `config/accounts.yaml`
+   (`drive_folder_id` per account) so later uploads target them by
+   `parentId` instead of re-creating folders. Create a fresh
+   date subfolder under each account folder at the start of each day's
+   batch.
+2. Upload the video with `create_file`: `title` using the convention
+   `<time>_<pillar-slug>_<hook_type>.mp4`, `base64Content` set to the
+   file's contents, `contentMimeType: "video/mp4"`,
+   `disableConversionToGoogleType: true` (video has no Google-native
+   equivalent, but set it explicitly so nothing gets reprocessed), and
+   `parentId` set to that day's account/date folder.
+3. Upload the matching script/caption as a sidecar text file in the same
+   folder (`title` matching the video minus extension, `.txt`,
+   `textContent` = script + caption + hashtags) so whoever reviews the
+   batch has the full context next to the video.
+4. Mark that calendar row's `status` as `delivered` (manually, or extend
+   `content_calendar.py`'s output if this becomes high-volume enough to
+   warrant a status-tracking store).
 
-Then `tiktok_publish_status` to confirm it went live, and mark that
-calendar row's `status` as `posted` (manually, or extend
-`content_calendar.py`'s output if this becomes high-volume enough to
-warrant a status-tracking store).
+## Step 7 — Later: connect TikTok and publish (deferred)
+
+Not part of the current daily workflow — do this only when you're ready
+to start actually posting to TikTok:
+
+1. Create the 5 TikTok accounts (moms / skincare / self-care / hair /
+   home) if they don't exist yet.
+2. For each, run `tiktok_connect` and complete the OAuth flow.
+3. Run `tiktok_accounts` to confirm each shows `status: active`, and
+   record its `connector_id` into the matching entry's `connector_id`
+   field in `config/accounts.yaml`. Also fill in `handle`.
+4. For each Drive video you're ready to post: `tiktok_prepare_publish`
+   (`mode: "DIRECT_POST"`, `media_type: "VIDEO"`, a Higgsfield-hosted
+   `video_url` — re-upload/import the Drive file to Higgsfield first,
+   since TikTok requires a verified Higgsfield-hosted source domain,
+   `video_duration_sec`, caption in `title`/`description`), then
+   `tiktok_publish` with every `required_confirmations` flag set `true`
+   and **`is_aigc: true`** (mandatory — all content here is
+   AI-generated). Then `tiktok_publish_status` to confirm it went live.
 
 ## Phase 2 (shop-primed) additions
 
