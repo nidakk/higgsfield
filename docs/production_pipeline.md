@@ -65,7 +65,11 @@ change.
 
 - Pass that account's `avatar.reference_media_id` (from Step 0) as the
   identity/face reference input — this is what keeps the same woman
-  showing up across every video on the account.
+  showing up across every video on the account. Use the medias role
+  matching that account's `avatar.reference_type`: `image_references`
+  for a generated portrait, `video_references` for a user-supplied video
+  reference (`seedance_2_0` accepts both directly — no frame extraction
+  needed for a video reference).
 - `aspect_ratio: "9:16"` (TikTok vertical).
 - Use the script from Step 2 as narration; she speaks to camera against
   that account's aesthetic backdrop (`aesthetic` field in
