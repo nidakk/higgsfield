@@ -111,6 +111,52 @@ change.
 - Pass `get_cost: true` first if credit spend needs to be checked before
   committing to a batch.
 
+## Step 3a — Selfie avatar videos (recurring presence posts)
+
+Distinct from the scripted problem/solution videos in Step 3: a
+recurring, unscripted post type where the avatar just holds up her own
+phone and smiles at camera — no dialogue, no hook, no script. These
+exist to make the account feel like a real person posting, not just a
+talking-head content machine. Each account gets 3 of these per day,
+same cadence as the scripted posts.
+
+**Locked prompt template** (fill the bracketed parts from that day's
+rotation — see below):
+
+> Authentic first-person selfie video, shot entirely from the
+> front-facing camera of the phone she is holding — this is her own
+> POV, exactly as if she filmed herself. [avatar description], at
+> [location], wearing [outfit]. She holds the phone up in one hand at a
+> natural selfie distance; her other hand is empty and relaxed. Only
+> one phone is ever visible — the one she's holding — there is no
+> second phone, no separate camera, and no third-person observer; the
+> shot IS her own recording of herself. She looks directly into the
+> lens with a warm, natural smile, not speaking, not gesturing — just
+> present and smiling, with only subtle natural movement (blinking, a
+> soft breath, hair or fabric moving slightly). [location ambience].
+> Photoreal, vertical selfie framing, casual handheld selfie energy,
+> not a polished studio shot.
+
+**Why the explicit "only one phone / no third-person observer" line is
+mandatory:** without it, `seedance_2_0` sometimes renders these as a
+third-person shot of her holding a phone — which reads as someone else
+filming her while she *also* holds a phone, i.e. two implied cameras.
+That's the exact failure mode to avoid; don't drop this line to shorten
+the prompt.
+
+- Same identity lock as Step 3 (`avatar.reference_media_id`,
+  `image_references` or `video_references` per `reference_type`).
+- `aspect_ratio: "9:16"`, `generate_audio: false` (no dialogue).
+- Location and outfit come from `scripts/content_calendar.py`'s
+  rotation (`selfie_location` / `selfie_outfit` per slot) — it cycles
+  through a location/outfit pool so the 3 daily posts per account never
+  repeat a setting or outfit on the same day, and the pool keeps
+  advancing day over day so it doesn't go stale. Don't hand-author
+  these per video; pull them from the calendar row.
+- If Higgsfield flags the prompt as matching a preset (e.g. "IN THE
+  DARK"), decline it (`declined_preset_id`) and generate literally —
+  the presets don't match this format.
+
 ## Step 4 — Local format validation
 
 Before spending a publish attempt, validate the exported file with the
