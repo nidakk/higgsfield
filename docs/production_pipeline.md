@@ -8,6 +8,13 @@ Google Drive (`create_file`) run through an agent session with those
 tools connected, since they aren't a public API a local script can call
 directly.
 
+**Only one video type is produced: the no-audio selfie/presence clip.**
+There is no spoken-to-camera scripted video anymore — that format
+(narrated ~20-25s script, avatar speaking to camera) was cut to stop
+spending credits on a format no longer in use. Every daily post is a
+6-second silent selfie clip (Step 3) paired with an on-screen hook
+question and a caption (Step 2) — nothing else generates.
+
 **Current delivery target: Google Drive, not TikTok.** Each day's batch
 is generated, quality-checked, and dropped into Drive for review —
 nothing auto-publishes to TikTok. Connecting the 5 TikTok accounts and
@@ -57,10 +64,12 @@ workaround is extracting a still frame from the source video directly
 python3 scripts/content_calendar.py --start <date> --days 1
 ```
 
-This produces one row per post (account, time, hook_type per the weekly
-hook schedule, content_type, and a `topic` placeholder). Treat it as the
-day's production queue, then fill in `topic` per Step 1.5 before
-scripting.
+This produces one row per post (account, time, hook_type — always
+`"question"`, see `docs/hooks_and_scripts.md` — content_type, a
+`topic` placeholder, and that slot's `selfie_location` /
+`selfie_location_ambience` / `selfie_outfit`). Treat it as the day's
+production queue, then fill in `topic` per Step 1.5 before writing
+hooks.
 
 ## Step 1.5 — Research today's trending topic per account
 
@@ -79,46 +88,28 @@ For each account, before scripting:
 3. Fill each row's `topic` field for that account/day with the chosen
    angle before moving to Step 2.
 
-## Step 2 — Script each slot
+## Step 2 — Write today's hook + caption
 
-For each row, write the script using the hook line matching that row's
-`hook_type` (pulled from the bank in `docs/hooks_and_scripts.md`) filled
-in with that row's `topic` from Step 1.5. Output: a short voiceover
-script (~20–25s) plus an on-screen hook line.
+No script, no voiceover — just two short pieces of text per slot:
+
+1. **On-screen hook** — a question, following the patterns and
+   intensity bar in `docs/hooks_and_scripts.md` ("Question hook
+   patterns"), filled in with that row's `topic` from Step 1.5. This is
+   text overlaid on the video, not narration — the clip itself is
+   silent (Step 3).
+2. **Caption** — one short line ("Cap: ...") plus 2-3 hashtags, posted
+   alongside the video.
+
+That's the entire text output for a post. There's no tension/proof/
+payoff script beat structure anymore — the hook+caption pair carries
+the whole post.
 
 ## Step 3 — Generate the video
 
-Use `generate_video` with an identity-consistent model — `seedance_2_0`
-is the default Higgsfield routes to for identity-preserving generation;
-confirm with `models_explore(action: "recommend")` against the goal
-("photoreal woman speaking to camera, same identity as a locked
-reference") before the first generation per account, since routing can
-change.
-
-- Pass that account's `avatar.reference_media_id` (from Step 0) as the
-  identity/face reference input — this is what keeps the same woman
-  showing up across every video on the account. Use the medias role
-  matching that account's `avatar.reference_type`: `image_references`
-  for a generated portrait, `video_references` for a user-supplied video
-  reference (`seedance_2_0` accepts both directly — no frame extraction
-  needed for a video reference).
-- `aspect_ratio: "9:16"` (TikTok vertical).
-- Use the script from Step 2 as narration; she speaks to camera against
-  that account's aesthetic backdrop (`aesthetic` field in
-  `config/accounts.yaml`).
-- Keep her hair/wardrobe consistent with that account's `avatar` block
-  across all of that account's videos, on top of the locked face.
-- Pass `get_cost: true` first if credit spend needs to be checked before
-  committing to a batch.
-
-## Step 3a — Selfie avatar videos (recurring presence posts)
-
-Distinct from the scripted problem/solution videos in Step 3: a
-recurring, unscripted post type where the avatar just holds up her own
-phone and smiles at camera — no dialogue, no hook, no script. These
-exist to make the account feel like a real person posting, not just a
-talking-head content machine. Each account gets 3 of these per day,
-same cadence as the scripted posts.
+The only video type: a recurring, unscripted selfie/presence clip
+where the avatar just holds up her own phone and smiles at camera — no
+dialogue, no spoken script, silent. This is what makes the account feel
+like a real person posting. Each account gets 3 of these per day.
 
 **Locked prompt template** (fill the bracketed parts from that day's
 rotation — see below):
@@ -144,9 +135,15 @@ filming her while she *also* holds a phone, i.e. two implied cameras.
 That's the exact failure mode to avoid; don't drop this line to shorten
 the prompt.
 
-- Same identity lock as Step 3 (`avatar.reference_media_id`,
-  `image_references` or `video_references` per `reference_type`).
-- `aspect_ratio: "9:16"`, `generate_audio: false` (no dialogue).
+- Pass that account's `avatar.reference_media_id` (from Step 0) as the
+  identity/face reference input, using the medias role matching
+  `avatar.reference_type` (`image_references` or `video_references`) —
+  this is what keeps the same woman showing up across every video on
+  the account; never generate without it.
+- Model: `seedance_2_0`. `aspect_ratio: "9:16"` (TikTok vertical),
+  `duration: 6`, `generate_audio: false` (silent, no dialogue).
+- Pass `get_cost: true` first if credit spend needs to be checked before
+  committing to a batch.
 - Location and outfit come from `scripts/content_calendar.py`'s
   rotation (`selfie_location` / `selfie_outfit` per slot) — it cycles
   through a location/outfit pool so the 3 daily posts per account never
@@ -176,10 +173,12 @@ before publishing. Use the dashboard's hook-strength and retention-risk
 signals as a go/no-go gate:
 
 - Strong hook + low retention risk → proceed to publish.
-- Weak hook or high retention risk → revise the script's hook/tension
-  beats (Step 2) and regenerate rather than posting a video likely to
-  underperform. Protecting the account's growth-phase momentum matters
-  more than hitting the 3x/day quota on a specific day.
+- Weak hook or high retention risk → rewrite the on-screen hook (Step
+  2 — push it toward the concrete-scene bar in
+  `docs/hooks_and_scripts.md`) and regenerate rather than posting a
+  video likely to underperform. Protecting the account's growth-phase
+  momentum matters more than hitting the 3x/day quota on a specific
+  day.
 
 ## Step 6 — Deliver to Google Drive
 
@@ -213,10 +212,10 @@ instead of publishing:
    step can't complete end-to-end there; it needs either network access
    to the CDN host or a manual download/re-upload. Confirm this works
    before relying on it for a daily batch.
-3. Upload the matching script/caption as a sidecar text file in the same
-   folder (`title` matching the video minus extension, `.txt`,
-   `textContent` = script + caption + hashtags) so whoever reviews the
-   batch has the full context next to the video.
+3. Upload the matching hook + caption as a sidecar text file in the
+   same folder (`title` matching the video minus extension, `.txt`,
+   `textContent` = on-screen hook + caption + hashtags, from Step 2) so
+   whoever reviews the batch has the full context next to the video.
 4. Mark that calendar row's `status` as `delivered` (manually, or extend
    `content_calendar.py`'s output if this becomes high-volume enough to
    warrant a status-tracking store).
@@ -248,8 +247,9 @@ Once an account's `phase` in `config/accounts.yaml` flips to
 calendar generator starts marking ~30% of slots `shop_adjacent`. For
 those slots:
 
-- Script still opens with the same hook/tension structure — the payoff
-  becomes "here's what I actually use," not a hard sell.
+- Hook still follows the same question patterns — the caption's payoff
+  becomes "here's what I actually use," not a hard sell. The video
+  itself doesn't change (still the same silent selfie clip).
 - Attach TikTok Shop product tagging at publish time (once Shop is
   live on the account) rather than changing the video pipeline itself.
 - Watch the KPIs in `docs/strategy.md` weekly; dial the ratio back via

@@ -1,38 +1,21 @@
-# Hook & Script Templates
+# Hook & Caption Templates
 
-Every Phase 1 (growth) post follows the same five-beat structure from
-`docs/strategy.md`:
-
-**Hook → Tension → Relatable proof → Payoff/advice → Loop-close/CTA**
+**No script, no voiceover.** Every post is a silent selfie clip
+(`docs/production_pipeline.md`, Step 3) paired with exactly two pieces
+of text (Step 2): an on-screen hook and a caption. The five-beat
+scripted structure this doc used to describe (Hook → Tension →
+Relatable proof → Payoff/advice → Loop-close/CTA) is retired along with
+the spoken-to-camera video format — kept below only as legacy reference
+for phrasing variety, never produced as an actual script anymore.
 
 The topic for each post comes from that day's trend research
 (`docs/production_pipeline.md`, Step 1.5) — not a fixed pillar list.
 
-**On-screen hook text is always phrased as a question** — see "Question
-hook patterns" below. This replaced the earlier weekday-rotated hook
-categories (mid-sentence, bold claim, reverse psychology, etc.); those
-are kept further down for reference/variety within the script body, but
-the on-screen hook line itself is never one of those anymore, it's
-always a question. `scripts/content_calendar.py` assigns `hook_type:
-"question"` to every slot accordingly.
-
-## Universal script skeleton (~20–25s, matches short-form retention curve)
-
-```
-[0-2s]   HOOK — from the hook bank below, filled in with today's topic.
-[2-6s]   TENSION — why the obvious fix doesn't work / what's quietly making it worse.
-[6-12s]  RELATABLE PROOF — one specific, personal-feeling detail. A number,
-         a timeframe, a "the moment I realized."
-[12-20s] PAYOFF — the actual, usable fix. Plain language, no fluff.
-[20-22s] LOOP-CLOSE / CTA — reason to follow, comment, or save. Not every
-         post resolves cleanly — leave some open ("comment X and I'll send
-         the rest") to manufacture pull toward the next post.
-```
-
-On-screen text should carry the hook line verbatim (sound-off viewers).
-The account's avatar speaks the rest to camera against that account's
-aesthetic backdrop (`docs/production_pipeline.md`, Step 3) — she carries
-the delivery, the backdrop is atmosphere, not the message.
+**The on-screen hook is always phrased as a question** — see "Question
+hook patterns" below. `scripts/content_calendar.py` assigns
+`hook_type: "question"` to every slot accordingly. The caption is one
+short line ("Cap: ...") plus 2-3 hashtags — see the worked sets in
+recent posting history for the target tone.
 
 ## Question hook patterns
 
