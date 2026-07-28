@@ -56,23 +56,36 @@ Fill the blank with today's researched topic (Step 1.5). Vary which of
 the 3 shapes each post uses so a day's 3 posts per account don't all
 read identically.
 
-**Intensity bar: these need to sting, not just relate.** A hook that
-merely describes a shared experience ("Is skin longevity just
-anti-aging with a new name?") doesn't move anyone to comment — it's
-too easy to nod along and scroll past. The bar is a hook that makes the
-specific viewer feel personally named or exposes a hypocrisy they'll
-want to argue against:
-- Name the reader directly ("your," "you") doing the thing, not the
-  topic in the abstract.
-- Reach for hypocrisy/credibility call-outs over neutral description —
-  "why do people with the worst X give the most confident X advice"
-  lands harder than "is X trend actually real."
-- Ask something the viewer would rather not answer honestly in public
-  (count your unopened products, open your closet, check your screen
-  time) — that's what drives a defensive comment.
-- Still a question, still fits one of the 3 shapes above — the shape
-  doesn't change, the target does: aim at the viewer's behavior/ego,
-  not just the trend.
+**Intensity bar: identity-level, not behavior-level.** Two failed
+attempts taught this the hard way:
+
+1. Neutral/relatable ("Is skin longevity just anti-aging with a new
+   name?") — too easy to nod along and scroll past.
+2. Behavior call-out ("Is your 10-step routine actually working, or
+   are you just addicted to buying skincare?") — sharper, still not
+   enough. It's a jab at a habit; the viewer shrugs it off or gets
+   mildly defensive and moves on.
+
+What actually works: connect the niche topic to something the viewer
+doesn't say out loud — control, avoidance, fear, identity, grief,
+unspoken resentment. The niche topic (skincare, cleaning, hair, a
+parenting choice) is never really the subject; it's the doorway into
+the real one. Pattern: **"It's not really about ___, it's about ___"**
+— the surface behavior is a stand-in for the deeper thing.
+- _"Is your skincare routine actually about your skin, or is it the
+  one thing you still get to control?"_ — not "you buy too much," but
+  "this is a coping mechanism and you know it."
+- _"Is your house actually messy, or is it just the one thing you can
+  still control right now?"_ — not "you're not as clean as you claim,"
+  but "your space reflects something you won't say out loud."
+- _"Would you have done any of this differently if you knew how fast
+  you'd lose yourself in it?"_ — not "you're on your phone too much,"
+  but grief for an identity that's gone.
+
+Test before shipping a hook: does it name a *habit* (still too shallow)
+or does it name something the viewer has felt but never said out loud
+(right level)? If you can picture someone laughing it off, it's still
+level 2 — push it to level 3.
 
 Don't cross into attacking protected characteristics, body-shaming, or
 factual/medical claims that aren't true — the goal is "makes them want
