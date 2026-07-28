@@ -40,7 +40,7 @@ accounts:
       hair: "loose waves or a relaxed low bun"
       wardrobe: "soft knit cardigan, warm everyday styling"
       source_reference: null  # media_id once a reference photo is supplied (optional)
-      reference_media_id: null  # locked identity asset, generated once, reused for every video
+      reference_media_id: "0ec51516-bcd4-41dc-ac71-39310a0b50d8"  # approved candidate, soul_cast
     pillars:
       - daily overwhelm and mom guilt
       - parenting hacks for every age and stage
