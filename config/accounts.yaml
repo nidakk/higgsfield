@@ -1,0 +1,80 @@
+# Account roster for the 5-account TikTok Shop growth network.
+#
+# Fill in `handle` and `connector_id` once each account is created and
+# connected in Higgsfield (see docs/production_pipeline.md, step 0).
+# `connector_id` is returned by the tiktok_accounts MCP tool once connected.
+
+follower_goal: 5000
+posts_per_day: 3
+phase2_sell_ratio: 0.3  # fraction of Phase 2 posts that are shop-adjacent
+
+accounts:
+  - id: moms
+    niche: Moms
+    handle: null
+    connector_id: null
+    phase: growth
+    aesthetic: "soft natural light, cozy home interiors, warm muted palette"
+    pillars:
+      - daily overwhelm and mom guilt
+      - toddler / kid behavior hacks
+      - quick wins for exhausted parents
+      - "\"you're not failing\" reassurance"
+      - routines that actually survive real life
+    posting_times: ["08:00", "13:00", "19:00"]
+
+  - id: skincare
+    niche: Skincare
+    handle: null
+    connector_id: null
+    phase: growth
+    aesthetic: "macro product/texture shots, clean bright bathroom counters, minimal palette"
+    pillars:
+      - ingredient myths and mistakes
+      - routine simplification
+      - "why your skin isn't improving"
+      - budget dupes and layering order
+      - skin-barrier repair basics
+    posting_times: ["09:00", "14:00", "20:00"]
+
+  - id: self_care
+    niche: Self-care
+    handle: null
+    connector_id: null
+    phase: growth
+    aesthetic: "slow, calm b-roll — candlelight, tea, quiet rooms, soft motion"
+    pillars:
+      - burnout signs nobody names
+      - permission to rest reframes
+      - 5-minute resets
+      - boundaries scripts
+      - "why you feel guilty resting"
+    posting_times: ["07:30", "12:30", "21:00"]
+
+  - id: hair
+    niche: Hair
+    handle: null
+    connector_id: null
+    phase: growth
+    aesthetic: "salon-adjacent, glossy close-ups, motion on hair texture"
+    pillars:
+      - damage myths and fixes
+      - frizz and humidity fixes
+      - styling that actually holds
+      - product overwhelm simplified
+      - "why your hair stopped growing"
+    posting_times: ["08:30", "15:00", "19:30"]
+
+  - id: home
+    niche: Home
+    handle: null
+    connector_id: null
+    phase: growth
+    aesthetic: "tidy sunlit interiors, satisfying before/after motion, clean palette"
+    pillars:
+      - clutter triggers and quick resets
+      - chores that never end, simplified
+      - "why your space never feels calm"
+      - 10-minute reset routines
+      - budget-friendly calm-space swaps
+    posting_times: ["09:30", "14:30", "20:30"]
