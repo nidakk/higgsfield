@@ -56,36 +56,40 @@ Fill the blank with today's researched topic (Step 1.5). Vary which of
 the 3 shapes each post uses so a day's 3 posts per account don't all
 read identically.
 
-**Intensity bar: identity-level, not behavior-level.** Two failed
-attempts taught this the hard way:
+**Intensity bar: a concrete moment, not an abstract label.** Three
+failed attempts taught this the hard way:
 
 1. Neutral/relatable ("Is skin longevity just anti-aging with a new
    name?") — too easy to nod along and scroll past.
 2. Behavior call-out ("Is your 10-step routine actually working, or
-   are you just addicted to buying skincare?") — sharper, still not
-   enough. It's a jab at a habit; the viewer shrugs it off or gets
-   mildly defensive and moves on.
+   are you just addicted to buying skincare?") — sharper, still a jab
+   at a habit the viewer shrugs off.
+3. Abstract psychological label ("Is your skincare routine about your
+   skin, or the one thing you still get to control?") — feels deep on
+   the first one, but "control"/"avoidance"/"identity" are themselves
+   clichés now, and reusing the same 2-3 therapy-speak words across
+   every niche is *exactly* what makes a hook read as templated —
+   the word "control" doesn't know or care whether it's talking about
+   skincare or a messy closet, and it shows.
 
-What actually works: connect the niche topic to something the viewer
-doesn't say out loud — control, avoidance, fear, identity, grief,
-unspoken resentment. The niche topic (skincare, cleaning, hair, a
-parenting choice) is never really the subject; it's the doorway into
-the real one. Pattern: **"It's not really about ___, it's about ___"**
-— the surface behavior is a stand-in for the deeper thing.
-- _"Is your skincare routine actually about your skin, or is it the
-  one thing you still get to control?"_ — not "you buy too much," but
-  "this is a coping mechanism and you know it."
-- _"Is your house actually messy, or is it just the one thing you can
-  still control right now?"_ — not "you're not as clean as you claim,"
-  but "your space reflects something you won't say out loud."
-- _"Would you have done any of this differently if you knew how fast
-  you'd lose yourself in it?"_ — not "you're on your phone too much,"
-  but grief for an identity that's gone.
+What actually lands: a **specific, sensory, real moment** — something
+the viewer has literally done, at a literal time and place, that they
+recognize instantly and haven't heard anyone say out loud before. Not
+a label for the feeling — the scene itself. The Moms set worked for
+exactly this reason: "someone who was always in the room," "after
+they're already asleep" — a place, a time, a physical detail. Compare:
+- Label (weaker): _"Is your self-care routine about healing, or about
+  control?"_
+- Scene (stronger): _"Why do we only cry in the car, right before we
+  have to go be fine for everyone else?"_ — a specific place (the car),
+  a specific transition (before/after), no therapy jargon at all.
 
-Test before shipping a hook: does it name a *habit* (still too shallow)
-or does it name something the viewer has felt but never said out loud
-(right level)? If you can picture someone laughing it off, it's still
-level 2 — push it to level 3.
+Before shipping a hook, name the exact moment/place/time it's set in.
+If the answer is abstract ("it's about control") instead of concrete
+("2am, picking at your skin in the mirror," "the drawer you're scared
+to open," "Googling it at 1am instead of asking a doctor"), rewrite it
+— and don't reuse the same abstract noun across two different niches'
+hooks in the same batch, that's the templated feeling made visible.
 
 Don't cross into attacking protected characteristics, body-shaming, or
 factual/medical claims that aren't true — the goal is "makes them want
