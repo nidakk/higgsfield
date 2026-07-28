@@ -23,9 +23,10 @@ row; keep the beat structure and timing fixed.
          the rest") to manufacture pull toward the next post.
 ```
 
-On-screen text should carry the hook line verbatim (sound-off viewers);
-voiceover carries the rest. Aesthetic b-roll runs underneath throughout —
-it is atmosphere, never the message.
+On-screen text should carry the hook line verbatim (sound-off viewers).
+The account's avatar speaks the rest to camera against that account's
+aesthetic backdrop (`docs/production_pipeline.md`, Step 3) — she carries
+the delivery, the backdrop is atmosphere, not the message.
 
 ## The five hook types
 

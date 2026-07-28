@@ -1,10 +1,12 @@
-# TikTok Shop Growth Strategy — 5-Account Faceless Network
+# TikTok Shop Growth Strategy — 5-Account Consistent-Avatar Network
 
 ## Goal
 
-Grow five faceless, aesthetic-background TikTok accounts to 5,000 followers
-each, then pivot each account's content mix toward TikTok Shop–ready
-selling content, without losing the audience that got them there.
+Grow five TikTok accounts — each presented by its own distinct AI avatar
+(a different woman, 35+, per account) with a niche-appropriate aesthetic
+background — to 5,000 followers each, then pivot each account's content
+mix toward TikTok Shop–ready selling content, without losing the
+audience that got them there.
 
 | # | Niche       | Core audience problem the account solves |
 |---|-------------|---------------------------------------------------------------|
@@ -46,21 +48,31 @@ Phase transition is per-account, not simultaneous — each of the five hits
   `docs/production_pipeline.md`) assuming a standing daily queue, not
   one-off bursts.
 
-## Format: faceless, aesthetic-background
+## Format: distinct AI avatar per account
 
-- No face on camera, ever — build channel identity through the same
-  advice angle and same visual/aesthetic world (color palette, motion
-  style, backgrounds/b-roll) so it's recognizable without ever showing a
-  face.
-- Backgrounds: niche-appropriate aesthetic footage/motion — calm,
+- No real person's face on camera — the account owner never appears.
+  Each account is presented by its own AI avatar (a photoreal woman,
+  35+) — five different women, one per account, not one identity reused
+  across the network (see `avatar` block per account in
+  `config/accounts.yaml` for each one's description/hair/wardrobe: Moms
+  = warm and approachable, loose hair, soft knitwear; Skincare = sleek
+  and polished, minimal neutral top; Self-care = calm and grounded,
+  natural hair, loungewear; Hair = glossy and stylish (hair is the
+  visual hero); Home = warm minimalist, hair back, linen/utility tones).
+- **Consistency is within an account, not across accounts.** Each
+  account's avatar is locked once from a reference generation
+  (`avatar.reference_media_id` in `config/accounts.yaml`) and that same
+  identity is reused as the input for every subsequent video on that
+  account — see `docs/production_pipeline.md`, Step 0. This is what
+  makes the same woman show up in video 1 and video 200 on, say, the
+  Skincare account; it's a pipeline discipline (always pass the locked
+  reference), not something that happens automatically.
+- Backgrounds: niche-appropriate aesthetic setting behind her — calm,
   scroll-stopping, on-brand for the niche (e.g. Home = tidy sunlit
-  interiors; Skincare = macro texture/product shots; Moms = soft
-  lifestyle scenes). Use the `faceless-video` Higgsfield workflow
-  (non-photoreal, narrator-led) or narrator-over-b-roll depending on the
-  niche's best-performing look — test both early and standardize on
-  whichever holds retention better per account.
-- Voiceover or on-screen text carries the advice; the visual is
-  atmosphere, not the message.
+  interiors; Skincare = bright bathroom/vanity; Moms = cozy lived-in
+  home).
+- She delivers the script speaking to camera; on-screen text still
+  carries the hook line for sound-off viewers.
 
 ## The retention mechanic: "can't scroll away"
 
@@ -100,9 +112,15 @@ manufacture the sense that scrolling away means missing something.
 
 ## Risks and guardrails
 
+- Each account's avatar must stay locked to the same reference for
+  every video it posts — if the pipeline ever generates a video without
+  passing that account's `reference_media_id`, the face can drift and
+  break the "same woman" continuity the account is built on. Treat a
+  missing/wrong reference as a hard stop, not a minor inconsistency.
 - Don't cross-promote the five accounts to each other overtly — TikTok
-  and viewers both penalize obvious network behavior; let the aesthetic
-  and advice angle do the differentiation instead.
+  and viewers both penalize obvious network behavior; distinct avatars
+  plus distinct styling and advice angles already do most of that
+  differentiation.
 - Keep AIGC/faceless disclosure compliant with TikTok's policies when
   publishing (see `docs/production_pipeline.md` — `is_aigc` flag is
   mandatory on every publish call).

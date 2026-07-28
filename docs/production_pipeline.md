@@ -14,6 +14,31 @@ nothing auto-publishes to TikTok. Connecting the 5 TikTok accounts and
 turning on direct publishing is a deliberate later step (Step 7), done
 once you're ready to start actually posting.
 
+## Step 0 — Lock each account's avatar (one-time, per account)
+
+Each account needs its own distinct, locked identity before Step 3 can
+produce consistent videos. For each of the 5 accounts:
+
+1. If a reference photo is supplied for that account, bring it in with
+   `media_upload_widget` (local file) or `media_import_url` (a URL) and
+   use it as a face reference. Otherwise generate from that account's
+   `avatar.description` / `hair` / `wardrobe` text in
+   `config/accounts.yaml`.
+2. Call `models_explore(action: "recommend")` with the goal ("photoreal
+   woman, 35+, consistent identity across future videos") to confirm the
+   right identity-generation model, then `generate_image` a clean,
+   well-lit portrait matching that account's avatar description.
+3. Save the resulting media/job ID into that account's
+   `avatar.reference_media_id` in `config/accounts.yaml`.
+4. Every video generated for that account from then on (Step 3) must
+   pass this same `reference_media_id` as the identity input — never
+   let a generation happen without it, or the face will drift and break
+   the account's continuity.
+
+Nothing in Step 3 produces a consistent avatar until this runs per
+account. Currently blocked: no reference photos have been supplied yet
+for any of the 5 accounts.
+
 ## Step 1 — Generate the daily queue
 
 ```
@@ -29,23 +54,24 @@ For each row, write the script using the matching template in
 `docs/hooks_and_scripts.md` for that niche + hook_type. Output: a short
 voiceover script (~20–25s) plus an on-screen hook line.
 
-## Step 3 — Generate the faceless video
+## Step 3 — Generate the video
 
-Use the `faceless-video` Higgsfield workflow (narrator-led, non-photoreal,
-reusable style/character/location assets) — call
-`get_workflow_instructions(workflow="faceless-video")` for the full
-SKILL.md before the first generation per account, since it defines how to
-lock a consistent visual identity per channel.
+Use `generate_video` with an identity-consistent model — `seedance_2_0`
+is the default Higgsfield routes to for identity-preserving generation;
+confirm with `models_explore(action: "recommend")` against the goal
+("photoreal woman speaking to camera, same identity as a locked
+reference") before the first generation per account, since routing can
+change.
 
-For the generation call itself:
-
-- `generate_video` with `aspect_ratio: "9:16"` (TikTok vertical — the
-  workflow defaults to 16:9, override explicitly).
-- Use the script from Step 2 as the narration/prompt input.
-- Keep the same locked style/background aesthetic per account (see the
-  `aesthetic` field in `config/accounts.yaml`) across all of that
-  account's videos — this is what makes an account recognizable without
-  a face.
+- Pass that account's `avatar.reference_media_id` (from Step 0) as the
+  identity/face reference input — this is what keeps the same woman
+  showing up across every video on the account.
+- `aspect_ratio: "9:16"` (TikTok vertical).
+- Use the script from Step 2 as narration; she speaks to camera against
+  that account's aesthetic backdrop (`aesthetic` field in
+  `config/accounts.yaml`).
+- Keep her hair/wardrobe consistent with that account's `avatar` block
+  across all of that account's videos, on top of the locked face.
 - Pass `get_cost: true` first if credit spend needs to be checked before
   committing to a batch.
 

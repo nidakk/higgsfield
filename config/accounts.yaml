@@ -9,6 +9,14 @@
 # TikTok and start publishing directly (docs/production_pipeline.md,
 # step 7 — deferred). `connector_id` is returned by the tiktok_accounts
 # MCP tool once connected.
+#
+# Each account has its OWN distinct avatar (a different woman, 35+,
+# photoreal, per account — not one identity reused across accounts).
+# Consistency happens WITHIN an account, not across them: each account's
+# `avatar.reference_media_id` is generated once (docs/production_pipeline.md,
+# step 0) and then reused as the identity input for every single video
+# posted to that account from then on, so the same woman appears in
+# video 1 and video 200 alike. Null until step 0 runs for that account.
 
 follower_goal: 5000
 posts_per_day: 3
@@ -27,6 +35,12 @@ accounts:
     drive_folder_id: null
     phase: growth
     aesthetic: "soft natural light, cozy home interiors, warm muted palette"
+    avatar:
+      description: "Woman, mid-to-late 30s, warm and approachable — 'the friend who's been there'"
+      hair: "loose waves or a relaxed low bun"
+      wardrobe: "soft knit cardigan, warm everyday styling"
+      source_reference: null  # media_id once a reference photo is supplied (optional)
+      reference_media_id: null  # locked identity asset, generated once, reused for every video
     pillars:
       - daily overwhelm and mom guilt
       - parenting hacks for every age and stage
@@ -42,6 +56,12 @@ accounts:
     drive_folder_id: null
     phase: growth
     aesthetic: "macro product/texture shots, clean bright bathroom counters, minimal palette"
+    avatar:
+      description: "Woman, late 30s, polished and clinical-credible"
+      hair: "sleek, straight or slicked back"
+      wardrobe: "minimal neutral top, clean/polished styling"
+      source_reference: null
+      reference_media_id: null
     pillars:
       - ingredient myths and mistakes
       - routine simplification
@@ -57,6 +77,12 @@ accounts:
     drive_folder_id: null
     phase: growth
     aesthetic: "slow, calm b-roll — candlelight, tea, quiet rooms, soft motion"
+    avatar:
+      description: "Woman, late 30s, calm and grounded"
+      hair: "natural, loose, unstyled waves"
+      wardrobe: "soft loungewear/robe, unwound styling"
+      source_reference: null
+      reference_media_id: null
     pillars:
       - burnout signs nobody names
       - permission to rest reframes
@@ -72,6 +98,12 @@ accounts:
     drive_folder_id: null
     phase: growth
     aesthetic: "salon-adjacent, glossy close-ups, motion on hair texture"
+    avatar:
+      description: "Woman, mid-30s, glossy and stylish — hair is the visual hero"
+      hair: "voluminous, styled blowout or defined curls"
+      wardrobe: "fitted top, salon-credible styling"
+      source_reference: null
+      reference_media_id: null
     pillars:
       - damage myths and fixes
       - frizz and humidity fixes
@@ -87,6 +119,12 @@ accounts:
     drive_folder_id: null
     phase: growth
     aesthetic: "tidy sunlit interiors, satisfying before/after motion, clean palette"
+    avatar:
+      description: "Woman, late 30s/40s, warm minimalist and practical"
+      hair: "pulled back — ponytail or clip"
+      wardrobe: "linen/utility tones, put-together but casual"
+      source_reference: null
+      reference_media_id: null
     pillars:
       - clutter triggers and quick resets
       - chores that never end, simplified
