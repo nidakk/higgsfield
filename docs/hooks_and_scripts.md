@@ -15,37 +15,40 @@ which is the templated, surface-level register that's been rejected
 repeatedly. The niche is scope enough; the specific angle comes from
 the concrete-scene method below.
 
-**The on-screen hook is always phrased as a question** — see "Question
-hook patterns" below. `scripts/content_calendar.py` assigns
-`hook_type: "question"` to every slot accordingly. The caption is one
-short line ("Cap: ...") plus 2-3 hashtags — see the worked sets in
-recent posting history for the target tone.
+The caption is one short line ("Cap: ...") plus 2-3 hashtags — see the
+worked sets in recent posting history for the target tone.
 
-## Question hook patterns
+## Hook patterns (on-screen text)
 
-The on-screen hook line for every post, every account, every day. Three
-recurring shapes, mixed across a day's/account's posts rather than
-picking one and reusing it 3x:
+**The goal is rage bait: the hook has to make people argue in the
+comments, not just relate.** It works by making a blunt, confident
+claim that tells the viewer something's off about them — their
+perception, their honesty with themselves, or their judgement — in a
+way some viewers will feel is dead-on and others will feel is unfair.
+That split, not agreement, is what fills the comment section. A hook
+someone can nod along to and scroll past has failed, no matter how
+well-written it is.
 
-- **False-dichotomy / rhetorical:** "Is ___, or are you just ___?" —
-  poses the chosen angle as a loaded either/or that answers itself.
-  _"Is your $200 skincare routine doing anything, or are you just
-  paying to feel productive?"_
-- **Would-you-rather:** "Would you rather ___, or ___?" / "Would you
-  actually ___?" — forces a comparison that implies the viewer hasn't
-  really thought about it. _"Would you actually trust your derm over
-  TikTok, or is it too late for that?"_
-- **Why-does:** "Why does ___?" / "Why do we ___?" — treats an
-  absurdity as normal and asks the viewer to justify it. _"Why does
-  saying 'no' to your own kid suddenly make you the villain?"_
+**Format is flexible — content intensity is not.** A hook can be
+phrased as a question or as a flat statement; don't force a question
+mark if a direct claim lands harder. Three useful shapes, none
+mandatory, mix them up rather than reusing one:
+- **False-dichotomy / rhetorical:** "Is ___, or are you just ___?"
+- **Would-you-rather:** "Would you actually ___?"
+- **Flat claim:** a direct statement telling the viewer what's actually
+  true about them, no question at all — often the sharpest option.
+  _"You didn't get better skin. You got better at editing the photo
+  before you compare it to the last one."_
 
-Fill the blank with the account's chosen angle for that slot (a
-concrete scene within the niche, not a researched trend — see the
-intensity bar below). Vary which of the 3 shapes each post uses so a
-day's 3 posts per account don't all read identically.
+Every hook should target one of three things about the viewer:
+**perception** (they're not seeing something accurately), **honesty**
+(they're lying to themselves about something), or **judgement/
+competence** (they got played, fooled, or didn't know what they were
+doing). Pick one target, make the claim bluntly, don't soften it into
+an observation.
 
-**Intensity bar: a concrete moment, not an abstract label.** Three
-failed attempts taught this the hard way:
+**How this bar was found — five attempts, each one still short of the
+mark until the last:**
 
 1. Neutral/relatable ("Is skin longevity just anti-aging with a new
    name?") — too easy to nod along and scroll past.
@@ -53,31 +56,32 @@ failed attempts taught this the hard way:
    are you just addicted to buying skincare?") — sharper, still a jab
    at a habit the viewer shrugs off.
 3. Abstract psychological label ("Is your skincare routine about your
-   skin, or the one thing you still get to control?") — feels deep on
-   the first one, but "control"/"avoidance"/"identity" are themselves
-   clichés now, and reusing the same 2-3 therapy-speak words across
-   every niche is *exactly* what makes a hook read as templated —
-   the word "control" doesn't know or care whether it's talking about
-   skincare or a messy closet, and it shows.
+   skin, or the one thing you still get to control?") — feels deep but
+   "control"/"avoidance"/"identity" are clichés, and reusing the same
+   2-3 therapy-speak words across every niche reads as templated — the
+   word "control" doesn't care whether it's talking about skincare or
+   a messy closet, and it shows.
+4. Concrete scene, still just an observation ("Is that 10-step routine
+   actually about your skin, or is it just the only 15 minutes today
+   nobody needed anything from you?") — specific and personal, real
+   progress, but still something the viewer can quietly agree with and
+   move on from.
+5. **Blunt claim challenging perception/honesty/competence — the
+   actual bar:**
+   - _"Your skin never looked as bad as you think — you just started
+     checking it under lighting nobody else uses on you in real
+     life."_ (perception)
+   - _"You didn't get better skin. You got better at editing the photo
+     before you compare it to the last one."_ (honesty)
+   - _"If you can't tell me what's actually in that $90 serum, you
+     didn't buy skincare. You bought a video."_ (judgement)
 
-What actually lands: a **specific, sensory, real moment** — something
-the viewer has literally done, at a literal time and place, that they
-recognize instantly and haven't heard anyone say out loud before. Not
-a label for the feeling — the scene itself. The Moms set worked for
-exactly this reason: "someone who was always in the room," "after
-they're already asleep" — a place, a time, a physical detail. Compare:
-- Label (weaker): _"Is your self-care routine about healing, or about
-  control?"_
-- Scene (stronger): _"Why do we only cry in the car, right before we
-  have to go be fine for everyone else?"_ — a specific place (the car),
-  a specific transition (before/after), no therapy jargon at all.
-
-Before shipping a hook, name the exact moment/place/time it's set in.
-If the answer is abstract ("it's about control") instead of concrete
-("2am, picking at your skin in the mirror," "the drawer you're scared
-to open," "Googling it at 1am instead of asking a doctor"), rewrite it
-— and don't reuse the same abstract noun across two different niches'
-hooks in the same batch, that's the templated feeling made visible.
+Before shipping a hook, check: does it just describe a moment (level
+4, not sharp enough), or does it directly tell the viewer they're
+wrong/fooled/lying to themselves about something (level 5, the bar)?
+If someone could read it and think "yeah, that's me" with zero
+friction, it's not there yet — there needs to be enough sting that
+plenty of viewers want to argue back.
 
 Don't cross into attacking protected characteristics, body-shaming, or
 factual/medical claims that aren't true — the goal is "makes them want

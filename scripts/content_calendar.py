@@ -27,10 +27,11 @@ from pathlib import Path
 
 import yaml
 
-# On-screen hook text is always phrased as a question (docs/hooks_and_scripts.md,
-# "Question hook patterns") — every day uses the same hook_type. The old
-# weekday-rotated categories (mid_sentence/bold_claim/reverse_psychology/etc.)
-# are deprecated; this constant replaced the old per-weekday HOOK_SCHEDULE dict.
+# On-screen hook text is rage-bait (docs/hooks_and_scripts.md, "Hook
+# patterns") — every day uses the same hook_type. Format is flexible
+# (question or flat claim), the label just distinguishes this from the
+# old deprecated weekday-rotated categories (mid_sentence/bold_claim/
+# reverse_psychology/etc.) that this constant replaced.
 HOOK_TYPE = "question"
 
 # Rotation pools for Step 3a selfie avatar videos (docs/production_pipeline.md).

@@ -77,19 +77,21 @@ production queue, then write each row's hook + caption directly (Step
 trending this week" — that pulled hooks back toward naming a product/
 trend by name (skinimalism, cozymaxxing, scalp skinification...),
 which is exactly the templated, surface-level register that got
-rejected repeatedly in favor of concrete, evergreen, personal moments.
-The niche (`niche` / `aesthetic` in `config/accounts.yaml`) is scope
-enough — pick a specific angle straight from the concrete-scene method
-below, not from a headline.
+rejected repeatedly in favor of blunt, rage-bait claims about the
+viewer. The niche (`niche` / `aesthetic` in `config/accounts.yaml`) is
+scope enough — pick a specific angle straight from the method in
+`docs/hooks_and_scripts.md`, not from a headline.
 
 No script, no voiceover either — just two short pieces of text per
 slot:
 
-1. **On-screen hook** — a question, following the patterns and
-   intensity bar in `docs/hooks_and_scripts.md` ("Question hook
-   patterns") — a specific, sensory, real moment within that account's
-   niche. This is text overlaid on the video, not narration — the clip
-   itself is silent (Step 3).
+1. **On-screen hook** — following "Hook patterns" in
+   `docs/hooks_and_scripts.md`: a blunt claim that challenges the
+   viewer's perception, honesty, or judgement — meant to spark
+   arguments in the comments, not head-nods. Format (question or flat
+   statement) is flexible; the content bar isn't. This is text
+   overlaid on the video, not narration — the clip itself is silent
+   (Step 3).
 2. **Caption** — one short line ("Cap: ...") plus 2-3 hashtags, posted
    alongside the video.
 
