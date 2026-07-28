@@ -195,19 +195,24 @@ instead of publishing:
      Hair/2026-07-28/
      Home/2026-07-28/
    ```
-   Create the root folder and one subfolder per account with
-   `create_file` (`mimeType: "application/vnd.google-apps.folder"`),
-   record the returned folder IDs in `config/accounts.yaml`
-   (`drive_folder_id` per account) so later uploads target them by
-   `parentId` instead of re-creating folders. Create a fresh
-   date subfolder under each account folder at the start of each day's
-   batch.
+   Root and per-account folders are created (`drive_root_folder_id` /
+   `drive_folder_id` in `config/accounts.yaml`). Create a fresh date
+   subfolder under each account folder at the start of each day's batch
+   with `create_file` (`mimeType: "application/vnd.google-apps.folder"`,
+   `parentId` = that account's `drive_folder_id`).
 2. Upload the video with `create_file`: `title` using the convention
    `<time>_<topic-slug>_<hook_type>.mp4`, `base64Content` set to the
    file's contents, `contentMimeType: "video/mp4"`,
    `disableConversionToGoogleType: true` (video has no Google-native
    equivalent, but set it explicitly so nothing gets reprocessed), and
    `parentId` set to that day's account/date folder.
+   **Known gap:** `create_file` needs the video's raw bytes
+   (`base64Content`) — there's no upload-by-URL option. In an agent
+   session whose outbound network access excludes the Higgsfield CDN
+   host, the video can't be downloaded to build that payload, so this
+   step can't complete end-to-end there; it needs either network access
+   to the CDN host or a manual download/re-upload. Confirm this works
+   before relying on it for a daily batch.
 3. Upload the matching script/caption as a sidecar text file in the same
    folder (`title` matching the video minus extension, `.txt`,
    `textContent` = script + caption + hashtags) so whoever reviews the

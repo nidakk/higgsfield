@@ -33,7 +33,7 @@ follower_goal: 5000
 posts_per_day: 3
 phase2_sell_ratio: 0.3  # fraction of Phase 2 posts that are shop-adjacent
 
-drive_root_folder_id: null  # "TikTok Shop Growth" root folder, set once created
+drive_root_folder_id: "1zqzbq0qIXNuAF8R-ucMKLmmS_X81Nylp"  # "TikTok Shop Growth" root folder
 
 accounts:
   - id: moms
@@ -43,7 +43,7 @@ accounts:
     # empty nest), not just toddler/little-kid content.
     handle: null
     connector_id: null
-    drive_folder_id: null
+    drive_folder_id: "1lVjsV4MnQw8bgST2SJGBmg7jjnN3W34f"
     phase: growth
     aesthetic: "soft natural light, cozy home interiors, warm muted palette"
     avatar:
@@ -61,7 +61,7 @@ accounts:
     niche: Skincare
     handle: null
     connector_id: null
-    drive_folder_id: null
+    drive_folder_id: "1fwHGzpnHfQxCm-vpoUQHulJlV2DwQlps"
     phase: growth
     aesthetic: "macro product/texture shots, clean bright bathroom counters, minimal palette"
     avatar:
@@ -79,7 +79,7 @@ accounts:
     niche: Self-care
     handle: null
     connector_id: null
-    drive_folder_id: null
+    drive_folder_id: "18dhZyDa3UHus_2L23e9KVIPVDV3A_v6w"
     phase: growth
     aesthetic: "slow, calm b-roll — candlelight, tea, quiet rooms, soft motion"
     avatar:
@@ -97,7 +97,7 @@ accounts:
     niche: Hair
     handle: null
     connector_id: null
-    drive_folder_id: null
+    drive_folder_id: "1FoYjGxussEvMuQilYDXJ56MG8jlyc_D4"
     phase: growth
     aesthetic: "salon-adjacent, glossy close-ups, motion on hair texture"
     avatar:
@@ -115,7 +115,7 @@ accounts:
     niche: Home
     handle: null
     connector_id: null
-    drive_folder_id: null
+    drive_folder_id: "1v0w8kdwgdO_qIBsqwsWHN-a6cz1jyNP8"
     phase: growth
     aesthetic: "tidy sunlit interiors, satisfying before/after motion, clean palette"
     avatar:

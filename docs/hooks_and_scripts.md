@@ -6,10 +6,15 @@ Every Phase 1 (growth) post follows the same five-beat structure from
 **Hook → Tension → Relatable proof → Payoff/advice → Loop-close/CTA**
 
 The topic for each post comes from that day's trend research
-(`docs/production_pipeline.md`, Step 1.5) — not a fixed pillar list. The
-hook line comes from the bank below, picked via that day's slot in the
-**weekly hook schedule**. Keep the beat structure and timing fixed;
-swap in the day's researched topic and the matching hook line.
+(`docs/production_pipeline.md`, Step 1.5) — not a fixed pillar list.
+
+**On-screen hook text is always phrased as a question** — see "Question
+hook patterns" below. This replaced the earlier weekday-rotated hook
+categories (mid-sentence, bold claim, reverse psychology, etc.); those
+are kept further down for reference/variety within the script body, but
+the on-screen hook line itself is never one of those anymore, it's
+always a question. `scripts/content_calendar.py` assigns `hook_type:
+"question"` to every slot accordingly.
 
 ## Universal script skeleton (~20–25s, matches short-form retention curve)
 
@@ -29,11 +34,36 @@ The account's avatar speaks the rest to camera against that account's
 aesthetic backdrop (`docs/production_pipeline.md`, Step 3) — she carries
 the delivery, the backdrop is atmosphere, not the message.
 
-## The hook bank
+## Question hook patterns
+
+The on-screen hook line for every post, every account, every day. Three
+recurring shapes, mixed across a day's/account's posts rather than
+picking one and reusing it 3x:
+
+- **False-dichotomy / rhetorical:** "Is ___, or are you just ___?" —
+  poses the researched topic as a loaded either/or that answers itself.
+  _"Is your $200 skincare routine doing anything, or are you just
+  paying to feel productive?"_
+- **Would-you-rather:** "Would you rather ___, or ___?" / "Would you
+  actually ___?" — forces a comparison that implies the viewer hasn't
+  really thought about it. _"Would you actually trust your derm over
+  TikTok, or is it too late for that?"_
+- **Why-does:** "Why does ___?" / "Why do we ___?" — treats an
+  absurdity as normal and asks the viewer to justify it. _"Why does
+  saying 'no' to your own kid suddenly make you the villain?"_
+
+Fill the blank with today's researched topic (Step 1.5). Vary which of
+the 3 shapes each post uses so a day's 3 posts per account don't all
+read identically.
+
+## The hook bank (legacy — script-body variety, not on-screen hook)
 
 Source: a hook-schedule reference the user supplied (creator "julez |
 social media"). These are proven fill-in-the-blank lines, not just
 category descriptions — fill the blank with today's researched topic.
+No longer used for the on-screen hook line (see "Question hook
+patterns" above) — kept here as optional phrasing for the spoken
+tension/proof beats later in the script, where variety still helps.
 
 ### Mid-sentence hooks
 Drop the viewer into the middle of a thought — implies there's context
@@ -120,24 +150,14 @@ researched topic stated as a headline) that holds for the first ~1-2s
 before the avatar starts speaking the tension beat. Use sparingly as a
 pattern-break from the spoken-hook formats above.
 
-## Weekly hook schedule
+## Weekly hook schedule — deprecated
 
-Applies per account, per day — that day's 3 posts all draw from the
-listed category (pick different specific lines from the bank for each
-of the day's 3 slots so they don't repeat verbatim):
-
-| Day | Hook category |
-|---|---|
-| Monday | Mid-sentence |
-| Tuesday | Bold claim |
-| Wednesday | Reverse psychology |
-| Thursday | Probing |
-| Friday | Break — a natural, un-formulaic opener; skip the hook bank entirely for variety |
-| Saturday | Brand-to-brand (Phase 2 accounts only; Phase 1 accounts fall back to mid-sentence) |
-| Sunday | Headline typography |
-
-`scripts/content_calendar.py` assigns `hook_type` per this schedule
-based on the post date's weekday.
+This used to rotate the on-screen hook category by weekday
+(mid-sentence Monday, bold claim Tuesday, etc.). Superseded by
+"Question hook patterns" above — the on-screen hook is always a
+question now, every day, no weekday rotation.
+`scripts/content_calendar.py` assigns a fixed `hook_type: "question"`
+per slot instead of a per-weekday lookup.
 
 ## Worked examples per niche
 

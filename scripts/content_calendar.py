@@ -27,16 +27,11 @@ from pathlib import Path
 
 import yaml
 
-# Weekly hook schedule (docs/hooks_and_scripts.md) — Monday=0 .. Sunday=6.
-HOOK_SCHEDULE = {
-    0: "mid_sentence",
-    1: "bold_claim",
-    2: "reverse_psychology",
-    3: "probing",
-    4: "break",
-    5: "brand_to_brand",
-    6: "headline_typography",
-}
+# On-screen hook text is always phrased as a question (docs/hooks_and_scripts.md,
+# "Question hook patterns") — every day uses the same hook_type. The old
+# weekday-rotated categories (mid_sentence/bold_claim/reverse_psychology/etc.)
+# are deprecated; this constant replaced the old per-weekday HOOK_SCHEDULE dict.
+HOOK_TYPE = "question"
 
 # Rotation pools for Step 3a selfie avatar videos (docs/production_pipeline.md).
 # Deliberately different lengths so location/outfit combos don't lock into a
@@ -102,9 +97,7 @@ def generate_calendar(config: dict, start: datetime.date, days: int) -> list[Pos
 
         for day_offset in range(days):
             date = start + datetime.timedelta(days=day_offset)
-            hook_type = HOOK_SCHEDULE[date.weekday()]
-            if hook_type == "brand_to_brand" and phase != "shop_primed":
-                hook_type = "mid_sentence"  # Phase 1 fallback, see docs/hooks_and_scripts.md
+            hook_type = HOOK_TYPE
 
             for slot_index, post_time in enumerate(account["posting_times"]):
                 content_type = "problem_solution"
