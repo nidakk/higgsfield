@@ -56,6 +56,28 @@ Fill the blank with today's researched topic (Step 1.5). Vary which of
 the 3 shapes each post uses so a day's 3 posts per account don't all
 read identically.
 
+**Intensity bar: these need to sting, not just relate.** A hook that
+merely describes a shared experience ("Is skin longevity just
+anti-aging with a new name?") doesn't move anyone to comment — it's
+too easy to nod along and scroll past. The bar is a hook that makes the
+specific viewer feel personally named or exposes a hypocrisy they'll
+want to argue against:
+- Name the reader directly ("your," "you") doing the thing, not the
+  topic in the abstract.
+- Reach for hypocrisy/credibility call-outs over neutral description —
+  "why do people with the worst X give the most confident X advice"
+  lands harder than "is X trend actually real."
+- Ask something the viewer would rather not answer honestly in public
+  (count your unopened products, open your closet, check your screen
+  time) — that's what drives a defensive comment.
+- Still a question, still fits one of the 3 shapes above — the shape
+  doesn't change, the target does: aim at the viewer's behavior/ego,
+  not just the trend.
+
+Don't cross into attacking protected characteristics, body-shaming, or
+factual/medical claims that aren't true — the goal is "makes them want
+to argue in the comments," not "makes them report the video."
+
 ## The hook bank (legacy — script-body variety, not on-screen hook)
 
 Source: a hook-schedule reference the user supplied (creator "julez |
