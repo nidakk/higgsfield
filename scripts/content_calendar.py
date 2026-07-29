@@ -34,6 +34,14 @@ import yaml
 # reverse_psychology/etc.) that this constant replaced.
 HOOK_TYPE = "question"
 
+# Anchor date for the location/outfit rotation below. Rotation index is
+# computed from days-since-this-anchor, not from the loop position within
+# a single invocation — the daily batch is always run as `--days 1`, so if
+# the index were loop-relative it would reset to the same value every day
+# (bug found and fixed 2026-07-29: two consecutive daily runs produced an
+# identical location/outfit spread instead of advancing).
+ROTATION_EPOCH = datetime.date(2026, 7, 28)
+
 # Rotation pools for Step 3a selfie avatar videos (docs/production_pipeline.md).
 # Deliberately different lengths so location/outfit combos don't lock into a
 # repeating pattern together. Indexed by a running per-account slot counter,
@@ -108,8 +116,11 @@ def generate_calendar(config: dict, start: datetime.date, days: int) -> list[Pos
                         content_type = "shop_adjacent"
                         shop_debt -= 1.0
 
+                days_since_epoch = (date - ROTATION_EPOCH).days
                 rotation_index = (
-                    account_offset + day_offset * len(account["posting_times"]) + slot_index
+                    account_offset
+                    + days_since_epoch * len(account["posting_times"])
+                    + slot_index
                 )
                 location = LOCATION_POOL[rotation_index % len(LOCATION_POOL)]
                 outfit = OUTFIT_POOL[rotation_index % len(OUTFIT_POOL)]
