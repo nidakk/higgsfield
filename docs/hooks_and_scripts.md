@@ -1,12 +1,24 @@
-# Hook & Caption Templates
+# Hook & Caption Templates — ARCHIVED, not part of the active pipeline
 
-**No script, no voiceover.** Every post is a silent selfie clip
-(`docs/production_pipeline.md`, Step 3) paired with exactly two pieces
-of text (Step 2): an on-screen hook and a caption. The five-beat
-scripted structure this doc used to describe (Hook → Tension →
-Relatable proof → Payoff/advice → Loop-close/CTA) is retired along with
-the spoken-to-camera video format — kept below only as legacy reference
-for phrasing variety, never produced as an actual script anymore.
+**This entire file is archived.** As of 2026-07-29 the user writes
+their own on-screen hooks and captions — this pipeline no longer
+generates any text, only the silent selfie video
+(`docs/production_pipeline.md`, Step 2). Nothing below should be acted
+on; it's kept only as a record of how the hook style was calibrated,
+in case text generation is ever turned back on. Do not pick topics,
+write hooks, or write captions as part of a daily batch.
+
+---
+
+*(Everything below is historical reference only.)*
+
+**No script, no voiceover.** Every post was a silent selfie clip paired
+with exactly two pieces of text: an on-screen hook and a caption. The
+five-beat scripted structure this doc used to describe (Hook → Tension
+→ Relatable proof → Payoff/advice → Loop-close/CTA) was retired along
+with the spoken-to-camera video format before this whole file was
+archived — kept below only as legacy reference, never produced as an
+actual script.
 
 The topic for each post is picked directly, not researched — no web
 search, no "what's trending this week." That kept pulling hooks back

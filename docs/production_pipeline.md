@@ -8,22 +8,25 @@ Google Drive (`create_file`) run through an agent session with those
 tools connected, since they aren't a public API a local script can call
 directly.
 
-**Only one video type is produced: the no-audio selfie/presence clip.**
+**Only one thing is produced: the no-audio selfie/presence clip.**
 There is no spoken-to-camera scripted video anymore — that format
 (narrated ~20-25s script, avatar speaking to camera) was cut to stop
-spending credits on a format no longer in use. Every daily post is a
-6-second silent selfie clip (Step 3) paired with an on-screen hook
-question and a caption (Step 2) — nothing else generates.
+spending credits on a format no longer in use. **On-screen hooks and
+captions are no longer generated either — the user writes those
+themselves.** Don't write hook/caption text as part of this pipeline;
+if `docs/hooks_and_scripts.md` is still around, treat it as archived,
+not something to act on. Every daily post is just the 6-second silent
+selfie clip (Step 2) — nothing else generates.
 
 **Current delivery target: Google Drive, not TikTok.** Each day's batch
 is generated, quality-checked, and dropped into Drive for review —
 nothing auto-publishes to TikTok. Connecting the 5 TikTok accounts and
-turning on direct publishing is a deliberate later step (Step 7), done
+turning on direct publishing is a deliberate later step (Step 6), done
 once you're ready to start actually posting.
 
 ## Step 0 — Lock each account's avatar (one-time, per account) — done
 
-Each account needs its own distinct, locked identity before Step 3 can
+Each account needs its own distinct, locked identity before Step 2 can
 produce consistent videos. All 5 are locked as of this writing
 (`avatar.reference_media_id` in `config/accounts.yaml`); the process for
 locking or re-locking one:
@@ -36,7 +39,7 @@ locking or re-locking one:
 2. Save the resulting media/job ID into that account's
    `avatar.reference_media_id`, and set `avatar.reference_type` to
    `image` or `video` to match.
-3. Every video generated for that account from then on (Step 3) must
+3. Every video generated for that account from then on (Step 2) must
    pass this same `reference_media_id` as the identity input — never
    let a generation happen without it, or the face will drift and break
    the account's continuity.
@@ -64,51 +67,19 @@ workaround is extracting a still frame from the source video directly
 python3 scripts/content_calendar.py --start <date> --days 1
 ```
 
-This produces one row per post (account, time, hook_type — always
-`"question"`, see `docs/hooks_and_scripts.md` — content_type, a
-`topic` placeholder, and that slot's `selfie_location` /
-`selfie_location_ambience` / `selfie_outfit`). Treat it as the day's
-production queue, then write each row's hook + caption directly (Step
-2) — no research step in between.
+This produces one row per post (account, time, content_type, and that
+slot's `selfie_location` / `selfie_location_ambience` / `selfie_outfit`
+from the daily rotation). Treat it as the day's production queue, then
+go straight to Step 2 — there's no text to write, no research step in
+between.
 
-## Step 2 — Write today's hook + caption
+## Step 2 — Generate the video
 
-**No trend research.** Topics don't come from web search or "what's
-trending this week" — that pulled hooks back toward naming a product/
-trend by name (skinimalism, cozymaxxing, scalp skinification...),
-which is exactly the templated, surface-level register that got
-rejected repeatedly in favor of blunt, rage-bait claims about the
-viewer. The niche (`niche` / `aesthetic` in `config/accounts.yaml`) is
-scope enough — pick a specific angle straight from the method in
-`docs/hooks_and_scripts.md`, not from a headline.
-
-No script, no voiceover either — just two short pieces of text per
-slot:
-
-1. **On-screen hook** — following "Hook patterns" in
-   `docs/hooks_and_scripts.md`: a blunt claim that challenges the
-   viewer's perception, honesty, or judgement — meant to spark
-   arguments in the comments, not head-nods. Format (question or flat
-   statement) is flexible; the content bar isn't. This is text
-   overlaid on the video, not narration — the clip itself is silent
-   (Step 3).
-2. **Caption** — one short line ("Cap: ...") plus 2-3 hashtags, posted
-   alongside the video.
-
-Fill each row's `topic` field with the chosen angle (a short label, not
-the hook itself) for your own tracking/dedup purposes — not a research
-placeholder.
-
-That's the entire text output for a post. There's no tension/proof/
-payoff script beat structure anymore — the hook+caption pair carries
-the whole post.
-
-## Step 3 — Generate the video
-
-The only video type: a recurring, unscripted selfie/presence clip
+The only thing produced: a recurring, unscripted selfie/presence clip
 where the avatar just holds up her own phone and smiles at camera — no
-dialogue, no spoken script, silent. This is what makes the account feel
-like a real person posting. Each account gets 3 of these per day.
+dialogue, no spoken script, no on-screen text, silent. This is what
+makes the account feel like a real person posting. Each account gets 3
+of these per day.
 
 **Locked prompt template** (fill the bracketed parts from that day's
 rotation — see below):
@@ -153,7 +124,7 @@ the prompt.
   DARK"), decline it (`declined_preset_id`) and generate literally —
   the presets don't match this format.
 
-## Step 4 — Local format validation
+## Step 3 — Local format validation
 
 Before spending a publish attempt, validate the exported file with the
 existing checker:
@@ -165,24 +136,23 @@ python3 scripts/tiktok_analysis.py path/to/video.mp4
 Confirms vertical orientation, resolution, and duration are within
 TikTok's publishing requirements. Fix and re-export on any `FAIL`.
 
-## Step 5 — Virality gate
+## Step 4 — Virality gate
 
 Run `virality_predictor` (`action: "create"`) on the generated video
-before publishing. Use the dashboard's hook-strength and retention-risk
-signals as a go/no-go gate:
+before publishing. Use the dashboard's retention-risk signal as a
+go/no-go gate:
 
-- Strong hook + low retention risk → proceed to publish.
-- Weak hook or high retention risk → rewrite the on-screen hook (Step
-  2 — push it toward the concrete-scene bar in
-  `docs/hooks_and_scripts.md`) and regenerate rather than posting a
-  video likely to underperform. Protecting the account's growth-phase
-  momentum matters more than hitting the 3x/day quota on a specific
-  day.
+- Low retention risk → proceed to publish.
+- High retention risk → regenerate (different location/outfit from the
+  rotation, or flag the account's avatar reference for review) rather
+  than posting a video likely to underperform. Protecting the
+  account's growth-phase momentum matters more than hitting the 3x/day
+  quota on a specific day.
 
-## Step 6 — Deliver to Google Drive
+## Step 5 — Deliver to Google Drive
 
-Once a video passes Steps 4–5, upload it (and its caption) to Drive
-instead of publishing:
+Once a video passes Steps 3–4, upload it to Drive instead of
+publishing:
 
 1. Folder structure, created once and reused:
    ```
@@ -199,11 +169,12 @@ instead of publishing:
    with `create_file` (`mimeType: "application/vnd.google-apps.folder"`,
    `parentId` = that account's `drive_folder_id`).
 2. Upload the video with `create_file`: `title` using the convention
-   `<time>_<topic-slug>_<hook_type>.mp4`, `base64Content` set to the
-   file's contents, `contentMimeType: "video/mp4"`,
-   `disableConversionToGoogleType: true` (video has no Google-native
-   equivalent, but set it explicitly so nothing gets reprocessed), and
-   `parentId` set to that day's account/date folder.
+   `<time>.mp4`, `base64Content` set to the file's contents,
+   `contentMimeType: "video/mp4"`, `disableConversionToGoogleType: true`
+   (video has no Google-native equivalent, but set it explicitly so
+   nothing gets reprocessed), and `parentId` set to that day's
+   account/date folder. No caption/hook sidecar file — the user writes
+   and attaches captions themselves.
    **Known gap:** `create_file` needs the video's raw bytes
    (`base64Content`) — there's no upload-by-URL option. In an agent
    session whose outbound network access excludes the Higgsfield CDN
@@ -211,15 +182,11 @@ instead of publishing:
    step can't complete end-to-end there; it needs either network access
    to the CDN host or a manual download/re-upload. Confirm this works
    before relying on it for a daily batch.
-3. Upload the matching hook + caption as a sidecar text file in the
-   same folder (`title` matching the video minus extension, `.txt`,
-   `textContent` = on-screen hook + caption + hashtags, from Step 2) so
-   whoever reviews the batch has the full context next to the video.
-4. Mark that calendar row's `status` as `delivered` (manually, or extend
+3. Mark that calendar row's `status` as `delivered` (manually, or extend
    `content_calendar.py`'s output if this becomes high-volume enough to
    warrant a status-tracking store).
 
-## Step 7 — Later: connect TikTok and publish (deferred)
+## Step 6 — Later: connect TikTok and publish (deferred)
 
 Not part of the current daily workflow — do this only when you're ready
 to start actually posting to TikTok:
@@ -234,21 +201,22 @@ to start actually posting to TikTok:
    (`mode: "DIRECT_POST"`, `media_type: "VIDEO"`, a Higgsfield-hosted
    `video_url` — re-upload/import the Drive file to Higgsfield first,
    since TikTok requires a verified Higgsfield-hosted source domain,
-   `video_duration_sec`, caption in `title`/`description`), then
-   `tiktok_publish` with every `required_confirmations` flag set `true`
-   and **`is_aigc: true`** (mandatory — all content here is
-   AI-generated). Then `tiktok_publish_status` to confirm it went live.
+   `video_duration_sec`, the user's own caption in `title`/
+   `description`), then `tiktok_publish` with every
+   `required_confirmations` flag set `true` and **`is_aigc: true`**
+   (mandatory — all content here is AI-generated). Then
+   `tiktok_publish_status` to confirm it went live.
 
 ## Phase 2 (shop-primed) additions
 
 Once an account's `phase` in `config/accounts.yaml` flips to
 `shop_primed` (crossed 5,000 followers — see `docs/strategy.md`), the
-calendar generator starts marking ~30% of slots `shop_adjacent`. For
-those slots:
+calendar generator starts marking ~30% of slots `shop_adjacent`. The
+video itself doesn't change (still the same silent selfie clip) —
+`content_type` on the calendar row is a signal for the user's own
+captioning (e.g. "here's what I actually use" instead of a hard sell),
+not something this pipeline acts on.
 
-- Hook still follows the same question patterns — the caption's payoff
-  becomes "here's what I actually use," not a hard sell. The video
-  itself doesn't change (still the same silent selfie clip).
 - Attach TikTok Shop product tagging at publish time (once Shop is
   live on the account) rather than changing the video pipeline itself.
 - Watch the KPIs in `docs/strategy.md` weekly; dial the ratio back via

@@ -2,12 +2,12 @@
 """Generate a posting calendar for the 5-account TikTok Shop growth network.
 
 Reads config/accounts.yaml (accounts, niches, posting times, phase) and
-produces a day-by-day queue of post slots: which account, what time,
-hook_type (always "question"), a selfie location/outfit from the daily
-rotation, and whether the post is problem/solution (growth) or
-shop-adjacent (phase 2). The `topic` field is left for Step 2
-(docs/production_pipeline.md) to fill in directly — no trend research,
-no fixed pillar list, see docs/hooks_and_scripts.md.
+produces a day-by-day queue of post slots: which account, what time, a
+selfie location/outfit from the daily rotation, and whether the post
+is problem/solution (growth) or shop-adjacent (phase 2, a signal for
+the user's own captioning — see docs/production_pipeline.md). No
+hook/caption text is generated or tracked here — the user writes their
+own.
 
 Usage:
     content_calendar.py
@@ -27,13 +27,6 @@ from pathlib import Path
 
 import yaml
 
-# On-screen hook text is rage-bait (docs/hooks_and_scripts.md, "Hook
-# patterns") — every day uses the same hook_type. Format is flexible
-# (question or flat claim), the label just distinguishes this from the
-# old deprecated weekday-rotated categories (mid_sentence/bold_claim/
-# reverse_psychology/etc.) that this constant replaced.
-HOOK_TYPE = "question"
-
 # Anchor date for the location/outfit rotation below. Rotation index is
 # computed from days-since-this-anchor, not from the loop position within
 # a single invocation — the daily batch is always run as `--days 1`, so if
@@ -42,7 +35,7 @@ HOOK_TYPE = "question"
 # identical location/outfit spread instead of advancing).
 ROTATION_EPOCH = datetime.date(2026, 7, 28)
 
-# Rotation pools for Step 3a selfie avatar videos (docs/production_pipeline.md).
+# Rotation pools for Step 2 selfie avatar videos (docs/production_pipeline.md).
 # Deliberately different lengths so location/outfit combos don't lock into a
 # repeating pattern together. Indexed by a running per-account slot counter,
 # so the day's 3 posts never repeat a setting/outfit and the pool keeps
@@ -77,8 +70,6 @@ class PostSlot:
     niche: str
     phase: str
     content_type: str
-    topic: str
-    hook_type: str
     selfie_location: str
     selfie_location_ambience: str
     selfie_outfit: str
@@ -106,7 +97,6 @@ def generate_calendar(config: dict, start: datetime.date, days: int) -> list[Pos
 
         for day_offset in range(days):
             date = start + datetime.timedelta(days=day_offset)
-            hook_type = HOOK_TYPE
 
             for slot_index, post_time in enumerate(account["posting_times"]):
                 content_type = "problem_solution"
@@ -133,8 +123,6 @@ def generate_calendar(config: dict, start: datetime.date, days: int) -> list[Pos
                         niche=account["niche"],
                         phase=phase,
                         content_type=content_type,
-                        topic="TBD — fill directly in Step 2, no research",
-                        hook_type=hook_type,
                         selfie_location=location["label"],
                         selfie_location_ambience=location["ambience"],
                         selfie_outfit=outfit,
