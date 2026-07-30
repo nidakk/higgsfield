@@ -1,8 +1,18 @@
 # Scripted talking-avatar video pipeline (word-accurate, low-cost)
 
-For any video where the avatar speaks a script the user wrote (not the
-silent no-dialogue selfie default in `docs/production_pipeline.md`, Step
-2) — e.g. a one-off recreation, a multi-video campaign. This doc exists
+For any video where the avatar speaks a script (not the silent
+no-dialogue selfie default in `docs/production_pipeline.md`, Step 2) —
+e.g. a one-off recreation, a multi-video campaign.
+
+**The script always comes from the user, verbatim.** Do not write,
+paraphrase, shorten, "clean up," or otherwise alter a single word of
+it — not in the video prompt, not in the TTS step, not anywhere. The
+only thing ever done to the user's script text is pasting it unchanged
+into the `generate_audio` prompt (step 2a below) so it gets spoken
+back exactly. If a script isn't supplied, stop and ask for it — never
+invent one to fill the gap.
+
+This doc exists
 because of a real, expensive failure (2026-07-30): `generate_video` was
 called with the script embedded in the prompt as `She says: "..."` and
 `generate_audio: true`, on the assumption the model would read it back
@@ -29,11 +39,12 @@ improve quality — ask first, same as any other credit-spend decision.
 script in the video prompt as something the avatar "says" and let
 `generate_video` invent matching audio. Instead:
 
-   a. Generate the exact script as real text-to-speech first, via
-      `generate_audio` (model `seed_audio`), using the script text
-      verbatim as the prompt. This is deterministic TTS — it reads the
-      literal text, it does not improvise — so word accuracy is
-      structural, not a matter of prompt wording.
+   a. Take the user's script text exactly as given and pass it,
+      unchanged, as the prompt to `generate_audio` (model `seed_audio`)
+      to produce real text-to-speech. This is deterministic TTS — it
+      reads the literal text, it does not improvise — so word accuracy
+      is structural, not a matter of prompt wording. Do not summarize,
+      trim, or reword the user's script before passing it in.
    b. Pass the resulting audio job ID into `generate_video`'s `medias`
       as `role: "audio_references"`, alongside the avatar's identity
       reference (`image_references`/`video_references` per that

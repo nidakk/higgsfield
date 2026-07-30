@@ -23,13 +23,18 @@ exist because breaking them has already cost real money.
 
 ## Scripted/talking avatar video (user-supplied script)
 
+**The script always comes from the user, verbatim — never write,
+paraphrase, or "clean up" it.** If no script is supplied, stop and ask
+for one; never invent one.
+
 **Mandatory: `docs/scripted_video_pipeline.md`.** Never put a script in
 a `generate_video` prompt as a "she says: ..." line and let the model
 generate its own matching audio — it improvises the words instead of
-reading them, which is exactly what caused the loss above. Generate
-the script as real TTS audio first (`generate_audio`, model
-`seed_audio`), then pass it into `generate_video` as `audio_references`
-with `generate_audio: false`.
+reading them, which is exactly what caused the loss above. Instead,
+pass the user's script text unchanged as the prompt to `generate_audio`
+(model `seed_audio`) to get real TTS audio, then pass that audio job
+into `generate_video` as `audio_references` with `generate_audio:
+false`. The video model never sees or decides the words.
 
 ## Daily default content (no dialogue)
 
