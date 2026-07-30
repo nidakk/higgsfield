@@ -8,15 +8,22 @@ Google Drive (`create_file`) run through an agent session with those
 tools connected, since they aren't a public API a local script can call
 directly.
 
-**Only one thing is produced: the no-audio selfie/presence clip.**
-There is no spoken-to-camera scripted video anymore — that format
-(narrated ~20-25s script, avatar speaking to camera) was cut to stop
-spending credits on a format no longer in use. **On-screen hooks and
-captions are no longer generated either — the user writes those
-themselves.** Don't write hook/caption text as part of this pipeline;
-if `docs/hooks_and_scripts.md` is still around, treat it as archived,
-not something to act on. Every daily post is just the 6-second silent
-selfie clip (Step 2) — nothing else generates.
+**The daily default is the no-audio selfie/presence clip.** Every
+standing daily post is just the silent selfie clip (Step 2) — no
+dialogue, no on-screen text. **On-screen hooks and captions are not
+generated either — the user writes those themselves.** Don't write
+hook/caption text as part of this pipeline; if `docs/hooks_and_scripts.md`
+is still around, treat it as archived, not something to act on.
+
+**Scripted/talking videos (one-off recreations, campaigns) are a
+separate, non-default workflow — see `docs/scripted_video_pipeline.md`.**
+That doc is mandatory reading before generating any video where the
+avatar speaks a user-supplied script: it locks in the cheapest viable
+model/resolution and a TTS-audio-first procedure that prevents the
+video model from improvising the spoken words (the cause of a ~5,100
+credit loss on 2026-07-30 — wrong words, requiring repeated
+regeneration). Never embed a script as a "she says" line in a
+`generate_video` prompt and let the model generate its own audio.
 
 **Current delivery target: Google Drive, not TikTok.** Each day's batch
 is generated, quality-checked, and dropped into Drive for review —
