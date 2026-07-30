@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Higgsfield__job_display",
+      "mcp__Higgsfield__models_explore",
+      "mcp__Higgsfield__show_medias"
+    ]
+  }
+}
